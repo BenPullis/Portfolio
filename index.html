@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ben Pullis | Software Engineer</title>
+  <meta name="description" content="Ben Pullis: Computer Science student at the University of Minnesota and software engineer building full-stack, cloud, and systems software." />
+  <meta property="og:title" content="Ben Pullis | Software Engineer" />
+  <meta property="og:description" content="Computer Science @ University of Minnesota. Full-stack, cloud, and systems software." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23f2c14e'/><text x='50' y='66' font-size='48' font-family='Arial' font-weight='700' text-anchor='middle' fill='%231a1406'>BP</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <nav class="nav__links" id="navLinks" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#classes">Classes</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="assets/BenPullis-Resume.pdf" class="btn btn--small btn--outline nav__resume" target="_blank" rel="noopener">Resume</a>
+      <button class="icon-btn nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+
+      <div class="container hero__inner">
+                <h1 class="hero__title">
+          Ben Pullis
+        </h1>
+        <p class="hero__typed">
+          <span class="mono">&gt;</span> <span id="typed"></span><span class="caret">|</span>
+        </p>
+        <p class="hero__lead">
+          Computer Science student at the University of Minnesota who builds full-stack web apps,
+          cloud tooling, and systems software. Looking for a full-time role starting in 2027.
+        </p>
+        <div class="hero__cta">
+          <a href="#projects" class="btn btn--primary">See my projects</a>
+          <a href="#contact" class="btn btn--outline">Contact me</a>
+        </div>
+        <div class="hero__socials">
+          <a href="https://github.com/BenPullis" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ben-pullis-9457b22b0/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="mailto:pullisben14@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section__title">About Me</h2>
+        <div class="about">
+          <div class="about__text">
+            <p>
+              I'm a senior studying Computer Science at the <strong>University of Minnesota, Twin Cities</strong>,
+              graduating in <strong>December 2026</strong>. I like working across the stack, from designing
+              cloud-backed services and CI/CD pipelines to building responsive front ends.
+            </p>
+            <p>
+              This past summer I was a <strong>Software Engineering Intern at Daikin Applied</strong>, where I modernized
+              production applications to .NET 10 and architected a migration from network drives to Azure Blob Storage.
+              Before that I spent a year as a <strong>Teaching Assistant</strong> for Program Design &amp; Development,
+              helping students write cleaner, better-structured code.
+            </p>
+            <p>
+              This semester I'm taking applied machine learning, parallel computing, and generative AI for software engineering.
+            </p>
+          </div>
+          <div class="about__card">
+            <div class="avatar">
+              <picture><source srcset="assets/headshot.webp" type="image/webp" /><img src="assets/headshot.jpg" alt="Ben Pullis" width="640" height="640" /></picture>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section class="section" id="education">
+      <div class="container">
+        <h2 class="section__title">Education</h2>
+        <article class="edu">
+          <div class="edu__body">
+            <div class="edu__head">
+              <div>
+                <h3>University of Minnesota, Twin Cities</h3>
+                <p class="muted">Bachelor of Science in Computer Science, College of Science and Engineering</p>
+              </div>
+              <div class="edu__meta">
+                <span class="pill">Expected Dec. 2026</span>
+                <span class="pill pill--accent">GPA 3.80</span>
+              </div>
+            </div>
+            <p>Dean's List six times, from Fall 2023 to Spring 2026</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="section" id="experience">
+      <div class="container">
+        <h2 class="section__title">Experience</h2>
+        <div class="timeline">
+          <article class="timeline__item">
+            <div class="timeline__dot"></div>
+            <div class="timeline__card glass">
+              <div class="timeline__head">
+                <div>
+                  <h3>Software Engineering Intern</h3>
+                  <p class="accent">Daikin Applied Americas</p>
+                </div>
+                <div class="timeline__meta">
+                  <span>May 2026 – Aug. 2026</span>
+                  <span class="muted">Plymouth, MN</span>
+                </div>
+              </div>
+              <ul class="bullets">
+                <li>Modernized nine applications by upgrading them to <strong>.NET 10</strong>, testing changes in lower environments and supporting production releases.</li>
+                <li>Architected a migration of file consumption from a network drive to <strong>Azure Blob Storage</strong>, producing approved business, architecture, and testing documents.</li>
+                <li>Built and unit tested a <strong>C# NuGet package</strong> for file consumption and implemented CI/CD package publishing through <strong>Azure DevOps Pipelines</strong>.</li>
+              </ul>
+              <div class="tags tags--small"><span>C#</span><span>.NET 10</span><span>Azure Blob Storage</span><span>Azure DevOps</span><span>CI/CD</span></div>
+            </div>
+          </article>
+
+          <article class="timeline__item">
+            <div class="timeline__dot"></div>
+            <div class="timeline__card glass">
+              <div class="timeline__head">
+                <div>
+                  <h3>Teaching Assistant, CSCI 3081W</h3>
+                  <p class="accent">University of Minnesota, Program Design and Development</p>
+                </div>
+                <div class="timeline__meta">
+                  <span>Sept. 2025 – May 2026</span>
+                  <span class="muted">Minneapolis, MN</span>
+                </div>
+              </div>
+              <ul class="bullets">
+                <li>Hosted weekly office hours to help students work through obstacles and better understand the material.</li>
+                <li>Graded projects, labs, assignments, and exams fairly and efficiently.</li>
+                <li>Led weekly labs by summarizing the week's material, explaining requirements, and grading results.</li>
+              </ul>
+              <div class="tags tags--small"><span>C++</span><span>OOP &amp; Design Patterns</span><span>Mentoring</span><span>Communication</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section" id="projects">
+      <div class="container">
+        <h2 class="section__title">Projects</h2>
+        <div class="projects">
+          <article class="project glass">
+            <h3>Cloud File Retrieval Package</h3>
+            <p>A reusable NuGet package for consuming files from Azure Blob Storage through an internal API, preserving existing downstream workflows. Published through Azure DevOps Pipelines with work items to support team-wide adoption.</p>
+            <ul class="project__stack"><li>C#</li><li>.NET</li><li>Azure</li><li>Azure DevOps</li></ul>
+          </article>
+
+          <article class="project glass">
+            <h3>Full-Stack Blog Website</h3>
+            <p>A blog platform with user authentication, role-based access control, and persistent storage of posts and comments. Full CRUD, RESTful Express routes, and a responsive front end.</p>
+            <ul class="project__stack"><li>JavaScript</li><li>Node.js</li><li>Express.js</li><li>MySQL</li><li>HTML/CSS</li></ul>
+          </article>
+
+          <article class="project glass">
+            <h3>Drone Delivery Simulation</h3>
+            <p>A simulation of package delivery across the UMN campus using object-oriented design, SOLID principles, and multiple pathfinding algorithms. Built with Factory, Strategy, and Observer patterns on an Agile team, adding drone handoffs and battery recharging.</p>
+            <ul class="project__stack"><li>C++</li><li>Docker</li><li>Jira</li><li>UML</li></ul>
+          </article>
+        </div>
+        <p class="center muted more-link">
+          More on <a href="https://github.com/BenPullis" target="_blank" rel="noopener">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section" id="skills">
+      <div class="container">
+        <h2 class="section__title">Skills</h2>
+        <div class="skills">
+          <div class="skill-card">
+            <h3>Languages</h3>
+            <ul class="chips"><li>C++</li><li>C#</li><li>Python</li><li>JavaScript</li><li>Java</li><li>SQL</li><li>HTML/CSS</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Front End</h3>
+            <ul class="chips"><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Responsive Design</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Back End</h3>
+            <ul class="chips"><li>Node.js</li><li>Express.js</li><li>.NET / C#</li><li>REST APIs</li><li>Authentication &amp; RBAC</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Databases</h3>
+            <ul class="chips"><li>MySQL</li><li>PostgreSQL</li><li>MS SQL Server</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Cloud &amp; DevOps</h3>
+            <ul class="chips"><li>Azure Blob Storage</li><li>Azure DevOps Pipelines</li><li>CI/CD</li><li>Docker</li><li>GitHub</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Machine Learning &amp; Data</h3>
+            <ul class="chips"><li>Python</li><li>Probability &amp; Statistics</li><li>Linear Algebra</li><li>Applied ML (in progress)</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Tools &amp; Practices</h3>
+            <ul class="chips"><li>Git</li><li>Jira</li><li>Postman</li><li>VS / VS Code</li><li>UML</li><li>Design Patterns</li><li>Unit Testing</li></ul>
+          </div>
+          <div class="skill-card">
+            <h3>Professional</h3>
+            <ul class="chips"><li>Technical Documentation</li><li>Agile / Scrum</li><li>Mentoring &amp; Teaching</li><li>Cross-team Collaboration</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CLASSES ============ -->
+    <section class="section" id="classes">
+      <div class="container">
+        <h2 class="section__title">Classes Taken</h2>
+        <div class="filters" id="classFilters" role="tablist" aria-label="Filter classes">
+          <button class="filter is-active" data-filter="all">All</button>
+          <button class="filter" data-filter="systems">Systems</button>
+          <button class="filter" data-filter="software">Software Engineering</button>
+          <button class="filter" data-filter="web">Web, Data &amp; Cloud</button>
+          <button class="filter" data-filter="ai">AI, Graphics &amp; Vis</button>
+          <button class="filter" data-filter="theory">Theory &amp; Math</button>
+          <button class="filter" data-filter="current">In Progress</button>
+        </div>
+        <div class="classes" id="classGrid">
+          <!-- Rendered from js/classes.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact">
+      <div class="container contact">
+        <h2 class="section__title center">Contact</h2>
+        <p class="contact__lead">
+          I'm looking for full-time software engineering roles starting after I graduate in December 2026.
+          Email is the best way to reach me.
+        </p>
+        <div class="contact__cards">
+          <a class="contact__card" href="mailto:pullisben14@gmail.com">
+            <i class="fa-solid fa-envelope"></i><span>pullisben14@gmail.com</span>
+          </a>
+          <a class="contact__card" href="https://www.linkedin.com/in/ben-pullis-9457b22b0/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin"></i><span>LinkedIn</span>
+          </a>
+          <a class="contact__card" href="https://github.com/BenPullis" target="_blank" rel="noopener">
+            <i class="fa-brands fa-github"></i><span>GitHub</span>
+          </a>
+        </div>
+        <a href="mailto:pullisben14@gmail.com" class="btn btn--primary btn--large">Email me</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Ben Pullis</p>
+  </footer>
+
+  <button class="to-top icon-btn" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script src="js/classes.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
