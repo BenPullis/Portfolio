@@ -78,7 +78,7 @@ strong { color: var(--text); font-weight: 600; }
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
   border: 1px solid transparent; cursor: pointer;
 }
-.btn:hover { transform: translateY(-2px); }
+.btn:hover { transform: translateY(-2px); } 
 .btn--primary { background: var(--accent); color: var(--on-accent); }
 .btn--primary:hover { background: color-mix(in srgb, var(--accent) 88%, var(--text)); }
 .btn--outline { border-color: var(--accent); color: var(--accent); }
@@ -188,6 +188,7 @@ strong { color: var(--text); font-weight: 600; }
 
 /* ============ Education ============ */
 .edu { padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.edu + .edu { border-top: 0; }
 .edu__body { flex: 1; }
 .edu__head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
 .edu__head h3 { font-size: 1.3rem; }
@@ -243,18 +244,18 @@ strong { color: var(--text); font-weight: 600; }
 .filter:hover { color: var(--text); border-color: var(--accent); }
 .filter.is-active { background: var(--accent); color: var(--on-accent); border-color: transparent; }
 .classes {
-  display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem;
+  display: grid; grid-template-columns: 1fr; max-width: 780px;
   border-top: 1px solid var(--border);
   transition: opacity 0.18s;
 }
 .classes.is-swapping { opacity: 0; }
 .course {
-  display: grid; grid-template-columns: 6.5rem 1fr auto; gap: 1rem; align-items: baseline;
-  padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 7.5rem 1fr auto; gap: 1.5rem; align-items: baseline;
+  padding: 0.9rem 0; border-bottom: 1px solid var(--border);
 }
-.course__code { font-size: 0.82rem; color: var(--muted); }
-.course__name { font-weight: 500; line-height: 1.35; }
-.course__term { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.course__code { font-size: 0.88rem; color: var(--muted); }
+.course__name { font-size: 1.05rem; font-weight: 500; line-height: 1.35; }
+.course__term { font-size: 0.88rem; color: var(--muted); white-space: nowrap; }
 .course--current .course__term { color: var(--accent); }
 
 /* ============ Contact ============ */
@@ -291,8 +292,7 @@ strong { color: var(--text); font-weight: 600; }
 }
 @media (max-width: 600px) {
   .skill-card { grid-template-columns: 1fr; }
-  .classes { grid-template-columns: 1fr; }
-  .course { grid-template-columns: 5.5rem 1fr; }
+  .course { grid-template-columns: 5.5rem 1fr; gap: 1rem; }
   .course__term { grid-column: 2; }
   .timeline { padding-left: 1.5rem; }
   .timeline__dot { left: calc(-1.5rem + 1px); }
