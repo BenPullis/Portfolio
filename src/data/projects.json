@@ -1,0 +1,114 @@
+[
+  {
+    "title": "This Portfolio Website",
+    "description": "A static, single page portfolio showcasing my education, experience, skills, and coursework, with light and dark themes and a responsive layout. Features an animated particle background, a filterable class list, and a project carousel generated from JSON data. Built with HTML, CSS, JavaScript, and React using Vite, with deployment TBD.",
+    "from": "Personal Project",
+    "dates": "Fall 2026",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Castle Defense",
+    "description": "A 2D tower defense game where players strategically place defensive blocks to protect a portal from incoming enemies. Features physics-based movement, sound effects, and collision detection. Built with TypeScript using Node.js and npm for development, with deployment to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-1-castle-defense-BenPullis/"
+  },
+  {
+    "title": "Marble Racing",
+    "description": "A 3D racing game where players control a marble through obstacle filled tracks while competing against other marbles. Features simulated gravity, friction, collision handling, and camera-relative movement. Built with TypeScript and GopherGfx, using Node.js and npm for development, with deployment to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-02-marble-racing-BenPullis/"
+  },
+  {
+    "title": "Earthquake Visualization",
+    "description": "An interactive visualization of global earthquakes from 1905–2007, featuring smooth transitions between a 2D map and a 3D globe. Animates earthquake activity over time, using marker size and color to represent magnitude. Built with TypeScript and GopherGfx using NASA Earth imagery and USGS earthquake data, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-03-earthquake-visualization-BenPullis/"
+  },
+  {
+    "title": "So You Think Ants Can Dance",
+    "description": "An interactive animation project that brings dancing characters to life using Carnegie Mellon motion capture data. Features custom character models, skeletal animation, and smooth transitions between idle poses and user-selected dance moves. Built with TypeScript using hierarchical scene graphs and matrix transformations, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-04-so-you-think-ants-can-dance-BenPullis/"
+  },
+  {
+    "title": "Artistic Rendering",
+    "description": "An interactive 3D model viewer showcasing lighting and shading techniques, including Gouraud, Phong, cartoon shading with silhouette outlines, and normal mapping for detailed surfaces. Built with custom GLSL shaders, TypeScript, and GopherGfx, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-05-artistic-rendering-BenPullis/"
+  },
+  {
+    "title": "A World Made Of Drawings",
+    "description": "An interactive world building program that turns mouse drawings into sky artwork, standing objects, and terrain with hills and valleys. Built with TypeScript using ray casting, intersection testing, and dynamic mesh editing, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-06-a-world-made-of-drawings-BenPullis/"
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY – Month YYYY",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY – Month YYYY",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY",
+    "button": "none",
+    "link": ""
+  },
+  {
+    "title": "Project Title",
+    "description": "A sentence or two about what the project does and what you built.",
+    "from": "Class, job, or person",
+    "dates": "Month YYYY",
+    "button": "none",
+    "link": ""
+  }
+]

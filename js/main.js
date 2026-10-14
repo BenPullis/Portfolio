@@ -1,5 +1,7 @@
+import { CLASSES } from "./classes.js";
+
 (() => {
-  const $ = (s, el = document) => el.querySelector(s);
+  const $ =(s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

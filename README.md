@@ -1,6 +1,6 @@
 # Ben Pullis – Portfolio
 
-Personal portfolio site for Ben Pullis, a Computer Science student at the University of Minnesota. It is a single-page static site written in plain HTML, CSS, and JavaScript, with no framework, no dependencies to install, and no build step.
+Personal portfolio site for Ben Pullis, a Computer Science student at the University of Minnesota. It is a single-page site written in plain HTML, CSS, and JavaScript, built with [Vite](https://vite.dev/). React is used for individual interactive pieces ("islands"), such as the project carousel, while the rest of the page stays plain HTML.
 
 **Live site:** TODO (not deployed yet)
 
@@ -31,6 +31,7 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 - **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, a back-to-top button, and a collapsible menu on small screens.
 - **Responsive layout:** breakpoints at 900px and 600px.
 - **Resume download:** linked from the nav as a PDF.
+- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards drift slowly, snap into place, fade out at the edges, and can link to a live demo or the source code.
 
 ## Tech stack
 
@@ -38,7 +39,9 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 | --- | --- |
 | Markup | HTML5, one file ([index.html](index.html)) |
 | Styling | Plain CSS with custom properties ([css/main.css](css/main.css)) |
-| Behavior | Vanilla JavaScript, no modules or bundler ([js/main.js](js/main.js)) |
+| Behavior | Vanilla JavaScript modules ([js/main.js](js/main.js)) |
+| Components | React 19, mounted into specific elements ([src/main.jsx](src/main.jsx)) |
+| Build | Vite |
 | Icons | [Font Awesome 6.5.1](https://fontawesome.com/) from cdnjs |
 | Fonts | IBM Plex Sans and IBM Plex Mono from Google Fonts |
 
@@ -53,46 +56,124 @@ git clone git@github.com:BenPullis/Portfolio.git
 cd Portfolio
 ```
 
-Then either open `index.html` directly in a browser, or serve the folder:
+Install dependencies (needs Node.js 20.19+ or 22.12+) and start the dev server:
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-and visit <http://localhost:8000>.
+Vite prints a local URL (usually <http://localhost:5173>). Edits reload in the browser automatically.
 
-There is nothing to install and nothing to build. Edit a file and refresh the page.
+Opening `index.html` directly no longer works, because the browser can't run JSX or bare `react` imports on its own.
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server with hot reload |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Serve the `dist/` build locally to check it |
 
 ## Project structure
 
 ```
 Portfolio/
-├── index.html                  All page content and sections
+├── index.html                  All page content and sections (Vite's entry point)
+├── package.json                Dependencies and npm scripts
+├── vite.config.js              Vite config
 ├── css/
 │   └── main.css                Styles; theme tokens are at the top
 ├── js/
 │   ├── classes.js              Course data for the Classes section
-│   └── main.js                 All interactive behavior
-└── assets/
-    ├── BenPullis-Resume.pdf    Resume linked from the nav
-    ├── headshot.jpg            Headshot (fallback)
-    └── headshot.webp           Headshot (preferred format)
+│   └── main.js                 Non-React interactive behavior
+├── src/                        React code
+│   ├── main.jsx                Mounts React components into index.html
+│   ├── components/
+│   │   ├── CircularCarousel.*  3D carousel (from React Bits, adapted for cards)
+│   │   └── ProjectCarousel.*   Project cards shown in the carousel
+│   └── data/
+│       └── projects.json       Project card content
+└── public/                     Copied into the build as is
+    └── assets/
+        ├── BenPullis-Resume.pdf    Resume linked from the nav
+        ├── headshot.jpg            Headshot (fallback)
+        └── headshot.webp           Headshot (preferred format)
 ```
 
 [js/main.js](js/main.js) is one self-contained script, organized into commented blocks: theme, mobile nav, scroll effects, active nav link, typed roles, classes grid and filters, and the hero particle network.
 
-`classes.js` must load before `main.js`, because `main.js` reads the global `CLASSES` array it defines. The two `<script>` tags at the bottom of [index.html](index.html) are already in that order.
+`main.js` imports the `CLASSES` array from `classes.js`.
+
+### React components
+
+The page is plain HTML. React only renders inside elements registered in [src/main.jsx](src/main.jsx). To add a component:
+
+1. Create it in `src/components/`.
+2. Put an empty placeholder such as `<div id="my-widget"></div>` where it belongs in [index.html](index.html).
+3. Add `"my-widget": MyWidget` to the `islands` object in [src/main.jsx](src/main.jsx).
+
+Components can use the site's CSS classes (`btn`, `muted`, `mono`, …) and theme variables (`var(--accent)` and others), so they follow light and dark mode automatically.
 
 ## Updating content
 
 | To change | Edit |
 | --- | --- |
-| About, education, experience, projects, skills, contact text | The matching section in [index.html](index.html). Each one is marked with a banner comment such as `<!-- ============ PROJECTS ============ -->`. |
+| About, education, experience, skills, contact text | The matching section in [index.html](index.html). Each one is marked with a banner comment such as `<!-- ============ SKILLS ============ -->`. |
 | Page title, description, and social preview text | The `<head>` of [index.html](index.html) |
 | Roles shown by the typing effect | The `roles` array in [js/main.js](js/main.js) |
 | Classes | The `CLASSES` array in [js/classes.js](js/classes.js) |
-| Resume | Replace `assets/BenPullis-Resume.pdf`, keeping the filename |
-| Headshot | Replace both `assets/headshot.jpg` and `assets/headshot.webp` |
+| Project carousel cards | [src/data/projects.json](src/data/projects.json) (see below) |
+| Resume | Replace `public/assets/BenPullis-Resume.pdf`, keeping the filename |
+| Headshot | Replace both `public/assets/headshot.jpg` and `public/assets/headshot.webp` |
+
+### Project cards
+
+Each object in [src/data/projects.json](src/data/projects.json) becomes one card. Add or remove objects to change the number of cards. The first project starts in front, and the rest follow to its right in file order. Because the carousel is a loop, the last project sits to the left of the first.
+
+```json
+{
+  "title": "Drone Delivery Simulation",
+  "description": "A sentence or two about the project.",
+  "from": "CSCI 3081W – Program Design and Development",
+  "dates": "Jan. 2025 – May 2025",
+  "button": "try",
+  "link": "https://example.com"
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `title` | Project name |
+| `description` | Short summary. Keep it to about 2–4 sentences so it fits on the card. |
+| `from` | The class, job, or person the project was for |
+| `dates` | Free text, e.g. `"Fall 2025"` or `"Jan. 2025 – May 2025"` |
+| `button` | `"try"` shows a **Try Me!** button (for deployed projects), `"code"` shows **See The Code** (e.g. a GitHub repo), `"none"` shows no button |
+| `link` | Where the button goes. If it's `""`, no button shows, whatever `button` says. |
+
+To change the button labels or icons, or to add a new `button` option, edit the `BUTTONS` object near the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx).
+
+### Carousel size and behavior
+
+Card size is set by constants at the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx):
+
+| Constant | Meaning |
+| --- | --- |
+| `CARD_WIDTH` | Card width in px. Bigger cards mean fewer on screen at once. |
+| `CARD_ASPECT` | Width ÷ height. `1` is square, higher is wider and shorter. |
+| `SCREEN_MARGIN` | On narrow screens, cards shrink to the screen width minus this many px. |
+
+If cards get much taller, raise the `height` of `.project-carousel` in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css) so they have room.
+
+The carousel's behavior is set by props on `<CircularCarousel>` in the same file. The ones most worth adjusting:
+
+| Prop | Effect |
+| --- | --- |
+| `gap` | Space between cards. Lower it if you add many more projects and the ring gets too wide. |
+| `viewDistance` | How far back the viewer sits. Higher values flatten the side cards; `1` gives a strong fisheye look. |
+| `curve` | How much each card bends with the ring, from `0` (flat) to `1` |
+| `edgeFade` | Degrees over which cards fade out at the sides. `0` cuts them off instantly. |
+| `speed`, `autoplay`, `direction` | Drift speed; `"drift"` (continuous), `"step"` (one card at a time), or `"off"`; and direction |
+
+Card styling is in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css). The carousel draws each card as several vertical strips so it can curve, and each strip holds its own copy of the card's content. Any hover effect inside a card therefore has to be triggered from the whole card (see the `:has()` rule for the button in that file), or only the slice under the mouse will react.
 
 ### Adding a class
 
@@ -117,6 +198,14 @@ A course tagged `current` shows "In progress" in place of its term and is highli
 
 To add a new filter category, add a `<button class="filter" data-filter="yourtag">` inside `#classFilters` in [index.html](index.html), then use `yourtag` in the data.
 
+### Section titles
+
+Section headings use `section__title`. Add `center` to center one, and `section__title--lined` as well to draw a thin line on each side of it, as the Classes heading does:
+
+```html
+<h2 class="section__title center section__title--lined">Classes Taken</h2>
+```
+
 ## Theming
 
 All colors, fonts, and the corner radius are CSS custom properties at the top of [css/main.css](css/main.css). `:root` holds the dark theme and `[data-theme="light"]` overrides it for the light theme.
@@ -135,6 +224,7 @@ The favicon is an inline SVG in the `<head>` of [index.html](index.html) with it
 - Icon-only buttons and links have `aria-label`s, and the mobile menu button keeps `aria-expanded` in sync.
 - Decorative elements (the canvas and the scroll progress bar) are hidden from assistive technology.
 - Semantic landmarks: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`.
+- The project carousel is a single tab stop. Once focused, the arrow keys move between cards, Home and End jump to the first and last, and Enter opens the front card's link. Screen readers hear the title of the card in front as it changes. With reduced motion on, the carousel doesn't drift or animate in.
 
 TODO: run a full audit (Lighthouse or axe) and check keyboard navigation and color contrast in both themes.
 
@@ -148,7 +238,12 @@ TODO: test on real mobile devices.
 
 TODO: the site is not deployed yet.
 
-Because it is fully static, with all paths relative and no build step, any static host can serve the repository root as is. Options to decide between: GitHub Pages, Netlify, Vercel, or Cloudflare Pages.
+Run `npm run build` and deploy the `dist/` folder. Don't deploy the repository root: the source `index.html` needs Vite to run. The build uses relative paths (`base: "./"` in [vite.config.js](vite.config.js)), so it also works from a subfolder, such as `https://benpullis.github.io/Portfolio/` on GitHub Pages.
+
+Options to decide between:
+
+- **GitHub Pages:** GitHub Pages can only serve the repository root or a `/docs` folder from a branch. To publish `dist/`, add a GitHub Actions workflow that runs `npm ci && npm run build` and deploys `dist/`, then set **Settings → Pages → Source** to "GitHub Actions".
+- **Netlify, Vercel, or Cloudflare Pages:** connect the repository and set the build command to `npm run build` and the output directory to `dist`.
 
 Still to do:
 
@@ -160,7 +255,7 @@ Still to do:
 
 - [ ] Deploy the site (see [Deployment](#deployment))
 - [ ] Add a screenshot to this README
-- [ ] Add links from each project card to its repository or demo
+- [ ] Fill in the remaining placeholder project cards in [src/data/projects.json](src/data/projects.json)
 - [ ] Add `og:image` and `og:url` meta tags so shared links show a preview image
 - [ ] Add a license
 

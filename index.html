@@ -194,29 +194,14 @@
     <section class="section" id="projects">
       <div class="container">
         <h2 class="section__title">Projects</h2>
-        <div class="projects">
-          <article class="project glass">
-            <h3>Cloud File Retrieval Package</h3>
-            <p>A reusable NuGet package for consuming files from Azure Blob Storage through an internal API, preserving existing downstream workflows. Published through Azure DevOps Pipelines with work items to support team-wide adoption.</p>
-            <ul class="project__stack"><li>C#</li><li>.NET</li><li>Azure</li><li>Azure DevOps</li></ul>
-          </article>
-
-          <article class="project glass">
-            <h3>Full-Stack Blog Website</h3>
-            <p>A blog platform with user authentication, role-based access control, and persistent storage of posts and comments. Full CRUD, RESTful Express routes, and a responsive front end.</p>
-            <ul class="project__stack"><li>JavaScript</li><li>Node.js</li><li>Express.js</li><li>MySQL</li><li>HTML/CSS</li></ul>
-          </article>
-
-          <article class="project glass">
-            <h3>Drone Delivery Simulation</h3>
-            <p>A simulation of package delivery across the UMN campus using object-oriented design, SOLID principles, and multiple pathfinding algorithms. Built with Factory, Strategy, and Observer patterns on an Agile team, adding drone handoffs and battery recharging.</p>
-            <ul class="project__stack"><li>C++</li><li>Docker</li><li>Jira</li><li>UML</li></ul>
-          </article>
-        </div>
-        <p class="center muted more-link">
-          More on <a href="https://github.com/BenPullis" target="_blank" rel="noopener">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        </p>
       </div>
+      
+      <div id="project-carousel"></div>
+
+      <p class="center muted more-link">
+          More on <a href="https://github.com/BenPullis" target="_blank" rel="noopener">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </p>
+
     </section>
 
     <!-- ============ SKILLS ============ -->
@@ -263,7 +248,7 @@
     <!-- ============ CLASSES ============ -->
     <section class="section" id="classes">
       <div class="container">
-        <h2 class="section__title">Classes Taken</h2>
+        <h2 class="section__title center section__title--lined">Classes Taken</h2>
         <div class="filters" id="classFilters" role="tablist" aria-label="Filter classes">
           <button class="filter is-active" data-filter="all">All</button>
           <button class="filter" data-filter="systems">Systems</button>
@@ -309,7 +294,7 @@
 
   <button class="to-top icon-btn" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <script src="js/classes.js"></script>
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="src/main.jsx"></script>
 </body>
 </html>

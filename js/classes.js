@@ -1,6 +1,6 @@
 // Courses from the University of Minnesota transcript.
 // Edit this list to add, remove, or retag classes. Tags drive the filter buttons.
-const CLASSES = [
+export const CLASSES = [
   // Fall 2026 (in progress)
   { code: "CSCI 4521", name: "Applied Machine Learning", term: "Fall 2026", tags: ["ai", "current"] },
   { code: "CSCI 4821", name: "Generative AI for Software Engineering", term: "Fall 2026", tags: ["ai", "software", "current"] },

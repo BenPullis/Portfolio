@@ -1,0 +1,49 @@
+.project-carousel {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  margin-top: 2.5rem;
+}
+
+/* Cards are drawn in vertical strips by the carousel, so the face must be opaque
+   and fill the whole card box. */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--cc-radius);
+  color: var(--text);
+  text-align: left;
+}
+
+.project-card__title { font-size: 1.15rem; margin-bottom: 0.4rem; }
+
+.project-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+.project-card__meta .mono { color: var(--muted); font-size: 0.75rem; }
+
+.project-card__desc { flex: 1; color: var(--muted); font-size: 0.92rem; overflow: hidden; }
+
+.project-card__try { align-self: flex-start; gap: 0.5rem; }
+
+/* Each strip of a card has its own copy of the button, so a normal :hover would only
+   lift the slice under the mouse. Apply the hover look to every copy in the card instead. */
+.project-card__try:hover { transform: none; background: var(--accent); }
+.circular-carousel__card:has(.project-card__try:hover) .project-card__try {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--accent) 88%, var(--text));
+}
+
+@media (max-width: 600px) {
+  .project-carousel { height: 460px; }
+}
