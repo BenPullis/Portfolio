@@ -56,59 +56,107 @@
     "link": "https://csci-4611-spring-2026.github.io/assignment-06-a-world-made-of-drawings-BenPullis/"
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY – Month YYYY",
-    "button": "none",
+    "title": "Final Memo",
+    "description": "TODO",
+    "from": "APEC 1201 - Excel in Economics and Mgmnt",
+    "dates": "Fall 2026",
+    "button": "soon",
     "link": ""
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY",
-    "button": "none",
+    "title": "Big Macflation",
+    "description": "TODO",
+    "from": "CSCI 5609 - Visualization",
+    "dates": "Fall 2026",
+    "button": "soon",
     "link": ""
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY – Month YYYY",
-    "button": "none",
+    "title": "Coming Soon",
+    "description": "TODO",
+    "from": "CSCI 4821 - GenAI for Software Engineering",
+    "dates": "Fall 2026",
+    "button": "soon",
     "link": ""
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY",
-    "button": "none",
+    "title": "Coming Soon",
+    "description": "TODO",
+    "from": "CSCI 4521 - Applied Machine Learning",
+    "dates": "Fall 2026",
+    "button": "soon",
     "link": ""
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY",
-    "button": "none",
+    "title": "Vector Database",
+    "description": "TODO",
+    "from": "CSCI 4980 - Cloud Computing",
+    "dates": "Spring 2026",
+    "button": "soon",
     "link": ""
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY",
-    "button": "none",
+    "title": "Election Software",
+    "description": "TODO",
+    "from": "CSCI 4801 - Software Development Process",
+    "dates": "Fall 2025",
+    "button": "soon",
     "link": ""
   },
   {
-    "title": "Project Title",
-    "description": "A sentence or two about what the project does and what you built.",
-    "from": "Class, job, or person",
-    "dates": "Month YYYY",
-    "button": "none",
+    "title": "Blog Website",
+    "description": "TODO",
+    "from": "CSCI 4131 - Internet Programming",
+    "dates": "Fall 2025",
+    "button": "soon",
+    "link": ""
+  },
+  {
+    "title": "Sports Memorabilia Website",
+    "description": "TODO",
+    "from": "CSCI 4131 - Internet Programming",
+    "dates": "Fall 2025",
+    "button": "soon",
+    "link": ""
+  },
+  {
+    "title": "Drone Simulation",
+    "description": "A 3D simulation where users schedule package deliveries across the University of Minnesota campus. Features selectable pathfinding algorithms, dynamic package handoffs between drones, and automatic battery recharging. Built in C++ using Factory, Observer, and Strategy design patterns, with Docker for containerization and Jira, GitHub, and UML supporting development within a four-person Agile team.",
+    "from": "CSCI 3081 - Program Design & Development",
+    "dates": "Spring 2025",
+    "button": "try",
+    "link": "https://hub.docker.com/repository/docker/benp14/drone_sim/general"
+  },
+  {
+    "title": "Lisp Interpreter",
+    "description": "TODO",
+    "from": "CSCI 2041 - Advanced Programming Principles",
+    "dates": "Fall 2024",
+    "button": "soon",
+    "link": ""
+  },
+  {
+    "title": "Contact Log",
+    "description": "TODO",
+    "from": "CSCI 2021 - Machine Architecture & Organization",
+    "dates": "Fall 2024",
+    "button": "soon",
+    "link": ""
+  },
+  {
+    "title": "Chess",
+    "description": "TODO",
+    "from": "CSCI 1933 - Intro to Algorithms & Data Structures",
+    "dates": "Spring 2024",
+    "button": "soon",
+    "link": ""
+  },
+  {
+    "title": "Minesweeper",
+    "description": "TODO",
+    "from": "CSCI 1933 - Intro to Algorithms & Data Structures",
+    "dates": "Spring 2024",
+    "button": "soon",
     "link": ""
   }
 ]

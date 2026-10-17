@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 import CircularCarousel from "./CircularCarousel";
 import projects from "../data/projects.json";
@@ -27,18 +28,30 @@ const useCardWidth = () => {
 };
 
 // The `button` field in projects.json picks one of these. Anything else (e.g. "none") shows no button.
+// `disabled` buttons don't need a link and do nothing when clicked.
 const BUTTONS = {
   try: { label: "Try Me!", icon: "fa-solid fa-arrow-up-right-from-square" },
   code: { label: "See The Code", icon: "fa-solid fa-code" },
+  soon: { label: "Coming Soon!", icon: "fa-regular fa-clock", disabled: true },
 };
 
 // The button for a project, or null when it shouldn't have one.
-const buttonFor = (project) => (project.link && BUTTONS[project.button]) || null;
+const buttonFor = (project) => {
+  const button = BUTTONS[project.button];
+  if (!button || (!button.disabled && !project.link)) return null;
+  return button;
+};
 
-// One card face.
-// The carousel draws each card several times (one copy per curved strip), so the
+// Opens a project's link, if its button has one.
+const openProject = (project) => {
+  const button = buttonFor(project);
+  if (button && !button.disabled) window.open(project.link, "_blank", "noopener");
+};
+
+// One card face, used by both layouts.
+// The carousel draws each card several times (one copy per curved strip), so there the
 // link is kept out of the tab order; keyboard users press Enter on the carousel instead.
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, focusable = false }) => {
   const button = buttonFor(project);
   return (
     <article className="project-card">
@@ -50,8 +63,13 @@ const ProjectCard = ({ project }) => {
         </p>
       </header>
       <p className="project-card__desc">{project.description}</p>
-      {button && (
-        <a className="btn btn--primary btn--small project-card__try" href={project.link} target="_blank" rel="noopener" tabIndex={-1}>
+      {button?.disabled && (
+        <span className="btn btn--outline btn--small project-card__try project-card__try--disabled" aria-disabled="true">
+          {button.label} <i className={button.icon}></i>
+        </span>
+      )}
+      {button && !button.disabled && (
+        <a className="btn btn--primary btn--small project-card__try" href={project.link} target="_blank" rel="noopener" tabIndex={focusable ? undefined : -1}>
           {button.label} <i className={button.icon}></i>
         </a>
       )}
@@ -59,16 +77,51 @@ const ProjectCard = ({ project }) => {
   );
 };
 
+// The grid layout: every card at once, in projects.json order. Column count is set in ProjectCarousel.css.
+const ProjectGrid = () => (
+  <div className="container project-grid" style={{ "--card-aspect": CARD_ASPECT }}>
+    {projects.map((project, i) => (
+      <ProjectCard key={i} project={project} focusable />
+    ))}
+  </div>
+);
+
 const ProjectCarousel = () => {
-  const cardWidth = useCardWidth();
+  // "carousel" or "grid". The page always opens on the carousel.
+  const [layout, setLayout] = useState("carousel");
   if (projects.length === 0) return null;
+  const isGrid = layout === "grid";
+  // The button lives next to the Projects heading in index.html (#project-layout-toggle),
+  // outside this island, so it's drawn there with a portal. Styled like the nav's Resume button.
+  const toggleSlot = document.getElementById("project-layout-toggle");
+  const toggle = (
+    <button
+      type="button"
+      className="btn btn--small btn--outline"
+      aria-pressed={isGrid}
+      onClick={() => setLayout(isGrid ? "carousel" : "grid")}
+    >
+      Change Layout
+    </button>
+  );
+  return (
+    <>
+      {toggleSlot && createPortal(toggle, toggleSlot)}
+      {isGrid ? <ProjectGrid /> : <CarouselView />}
+    </>
+  );
+};
+
+// The carousel layout (the default).
+const CarouselView = () => {
+  const cardWidth = useCardWidth();
   return (
     <div className="project-carousel">
       <CircularCarousel
         items={ringOrder}
         renderItem={(project) => <ProjectCard project={project} />}
         ariaLabel="Projects carousel"
-        onItemActivate={(project) => buttonFor(project) && window.open(project.link, "_blank", "noopener")}
+        onItemActivate={openProject}
         preset="panorama"
         intro="assemble"
         cardWidth={cardWidth}

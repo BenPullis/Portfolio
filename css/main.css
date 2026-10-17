@@ -77,6 +77,7 @@ strong { color: var(--text); font-weight: 600; }
   font-weight: 600; font-size: 0.95rem;
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
   border: 1px solid transparent; cursor: pointer;
+  font-family: inherit; background: transparent; /* so <button>s match <a> buttons */
 }
 .btn:hover { transform: translateY(-2px); } 
 .btn--primary { background: var(--accent); color: var(--on-accent); }
@@ -171,6 +172,10 @@ strong { color: var(--text); font-weight: 600; }
   content: ""; flex: 1; max-width: 260px; height: 1px; background: var(--border); margin-left: 1rem;
 }
 .section__title.center { justify-content: center; }
+/* Title with something just past its line, like the Projects "Change Layout" button */
+.section__head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+.section__head .section__title { margin-bottom: 0; min-width: 0; }
+.section__head .section__title:not(.center)::after { flex: 0 1 auto; width: 260px; }
 /* Centered title with a thin line on each side */
 .section__title--lined::before,
 .section__title--lined::after {

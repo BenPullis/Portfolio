@@ -5,6 +5,18 @@
   margin-top: 2.5rem;
 }
 
+/* Grid layout: 3 columns, dropping to 2 and then 1 on smaller screens (see the media queries below).
+   Cards are at least the carousel's shape (CARD_ASPECT in ProjectCarousel.jsx) but grow to fit
+   their text, and every row matches the tallest card so the grid stays even. */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 1.5rem;
+}
+.project-grid .project-card { aspect-ratio: var(--card-aspect); height: auto; align-self: stretch; }
+.project-grid .project-card__desc { overflow: visible; }
+
 /* Cards are drawn in vertical strips by the carousel, so the face must be opaque
    and fill the whole card box. */
 .project-card {
@@ -16,7 +28,7 @@
   padding: 1.5rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--cc-radius);
+  border-radius: var(--cc-radius, 6px);
   color: var(--text);
   text-align: left;
 }
@@ -36,14 +48,23 @@
 
 .project-card__try { align-self: flex-start; gap: 0.5rem; }
 
+/* "Coming Soon!" button: looks like a button but does nothing */
+.project-card__try--disabled,
+.project-card__try--disabled:hover { cursor: default; transform: none; background: transparent; color: var(--accent); }
+
 /* Each strip of a card has its own copy of the button, so a normal :hover would only
    lift the slice under the mouse. Apply the hover look to every copy in the card instead. */
-.project-card__try:hover { transform: none; background: var(--accent); }
-.circular-carousel__card:has(.project-card__try:hover) .project-card__try {
+.circular-carousel .project-card__try:not(.project-card__try--disabled):hover { transform: none; background: var(--accent); }
+.circular-carousel__card:has(.project-card__try:hover) .project-card__try:not(.project-card__try--disabled) {
   transform: translateY(-2px);
   background: color-mix(in srgb, var(--accent) 88%, var(--text));
 }
 
+@media (max-width: 900px) {
+  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 600px) {
   .project-carousel { height: 460px; }
+  .project-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .project-grid .project-card { aspect-ratio: auto; min-height: 340px; }
 }

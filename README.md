@@ -32,7 +32,7 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 - **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, a back-to-top button, and a collapsible menu on small screens.
 - **Responsive layout:** breakpoints at 900px and 600px.
 - **Resume download:** linked from the nav as a PDF.
-- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards drift slowly, snap into place, fade out at the edges, and can link to a live demo or the source code.
+- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards drift slowly, snap into place, fade out at the edges, and can link to a live demo or the source code. A **Change Layout** button switches to a grid of all the cards.
 
 ## Tech stack
 
@@ -150,10 +150,16 @@ Each object in [src/data/projects.json](src/data/projects.json) becomes one card
 | `description` | Short summary. Keep it to about 2–4 sentences so it fits on the card. |
 | `from` | The class, job, or person the project was for |
 | `dates` | Free text, e.g. `"Fall 2025"` or `"Jan. 2025 – May 2025"` |
-| `button` | `"try"` shows a **Try Me!** button (for deployed projects), `"code"` shows **See The Code** (e.g. a GitHub repo), `"none"` shows no button |
-| `link` | Where the button goes. If it's `""`, no button shows, whatever `button` says. |
+| `button` | `"try"` shows a **Try Me!** button (for deployed projects), `"code"` shows **See The Code** (e.g. a GitHub repo), `"soon"` shows a **Coming Soon!** button that does nothing, `"none"` shows no button |
+| `link` | Where the button goes. If it's `""`, no button shows, whatever `button` says (except `"soon"`, which never needs a link). |
 
-To change the button labels or icons, or to add a new `button` option, edit the `BUTTONS` object near the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx).
+To change the button labels or icons, or to add a new `button` option, edit the `BUTTONS` object near the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx). An option with `disabled: true` (like `soon`) is drawn as an outline button that does nothing.
+
+### Layout toggle
+
+A **Change Layout** button next to the Projects heading switches between the carousel (the default on every page load) and a grid showing every card at once, in `projects.json` order. The grid uses the same card component. Its cards are at least the carousel's shape (`CARD_ASPECT`) but grow to fit their text, and every card is as tall as the tallest one so the rows stay even (on phones, each card is just as tall as its own text). It has 3 columns, dropping to 2 at 900px wide and 1 at 600px; those are the `.project-grid` rules in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css).
+
+The button is rendered by `ProjectCarousel.jsx` but placed in the `#project-layout-toggle` placeholder beside the `<h2>` in [index.html](index.html), using a React portal. The heading row is a `.section__head`, a wrapper you can reuse to put something just past any section title's line.
 
 ### Carousel size and behavior
 
