@@ -4,11 +4,16 @@ import { createPortal } from "react-dom";
 import CircularCarousel from "./CircularCarousel";
 import projects from "../data/projects.json";
 
-// The ring places each next item to the left of the one before it. Keeping the first
-// project and reversing the rest puts projects.json in left-to-right order instead,
-// with the first project in front. Autoplay drifts left, so it plays them in order too.
-const ringOrder = projects.length ? [projects[0], ...projects.slice(1).reverse()] : [];
 import "./ProjectCarousel.css";
+
+// Which project (0 = first in projects.json) starts in front of the carousel. 1 starts on the
+// second project, which keeps the last one (Final Memo) further out of view to the left on load.
+const START_INDEX = 1;
+
+// The ring places each next item to the left of the one before it. Walking backwards through
+// projects.json from START_INDEX puts the file in left-to-right order instead, with
+// projects[START_INDEX] in front. Autoplay drifts left, so it plays them in order too.
+const ringOrder = projects.map((_, k) => projects[(((START_INDEX - k) % projects.length) + projects.length) % projects.length]);
 
 // ---- Card size: change these to resize the cards ----
 const CARD_WIDTH = 380; // px. Bigger cards = fewer on screen at once.

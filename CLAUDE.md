@@ -15,7 +15,7 @@ VS Code's "Go Live" / Live Server does **not** work. The source `index.html` loa
 
 ## Architecture: plain HTML + React "islands"
 
-- [index.html](index.html) is the whole page as plain HTML and is also Vite's entry point. Styling is [css/main.css](css/main.css), and non-React behavior is [js/main.js](js/main.js) (an ES module that imports `CLASSES` from [js/classes.js](js/classes.js)).
+- [index.html](index.html) is the whole page as plain HTML and is also Vite's entry point. Styling is [css/main.css](css/main.css), and non-React behavior is [js/main.js](js/main.js) (an ES module that imports the course list from [src/data/classes.json](src/data/classes.json)).
 - React renders only inside elements registered in the `islands` map in [src/main.jsx](src/main.jsx). Right now that's just `#project-carousel`. Ben chose islands over a full React conversion, so don't convert the rest of the page unless he asks.
 - No TypeScript, Tailwind, shadcn, or ESLint. They were removed on purpose because they conflicted with `main.css` (shared variable names like `--accent` and `--border`, the CSS reset, and a competing theme system).
 - Static files live in `public/assets/` and are referenced as `assets/...`. `vite.config.js` uses `base: "./"` so the build works from a GitHub Pages subfolder.
@@ -28,7 +28,7 @@ VS Code's "Go Live" / Live Server does **not** work. The source `index.html` loa
   - A plain `:hover` on an element inside a card only affects the slice under the mouse. Trigger hover effects from the whole card with `.circular-carousel__card:has(... :hover) ...` (see the Try Me button in `ProjectCarousel.css`).
   - Links in cards use `tabIndex={-1}` because of the duplicates. Keyboard users press Enter on the focused carousel, which calls `onItemActivate`.
   - Drag-release over a link is suppressed with `preventDefault` in `handleClick`.
-- **Order:** [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx) passes `ringOrder` (first project, then the rest reversed), so `projects.json` reads left to right with the first card in front.
+- **Order:** [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx) passes `ringOrder` (projects.json walked backwards from `START_INDEX`), so the file reads left to right with `projects[START_INDEX]` in front. `START_INDEX` is 1, so the second project starts in front.
 - **Warping:** most of the distortion came from the panorama preset putting the viewer at the center of the ring, not from `curve`. `viewDistance` (currently 2.6) is the main control.
 - Card size: the `CARD_WIDTH` / `CARD_ASPECT` / `SCREEN_MARGIN` constants at the top of `ProjectCarousel.jsx`. Button types: the `BUTTONS` map in the same file (`"try"`, `"code"`, `"none"`).
 

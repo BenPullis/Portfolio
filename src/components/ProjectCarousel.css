@@ -53,9 +53,9 @@
 .project-card__try--disabled:hover { cursor: default; transform: none; background: transparent; color: var(--accent); }
 
 /* Each strip of a card has its own copy of the button, so a normal :hover would only
-   lift the slice under the mouse. Apply the hover look to every copy in the card instead. */
+   change the slice under the mouse. Turn that off and apply the hover look to every copy in the card. */
 .circular-carousel .project-card__try:not(.project-card__try--disabled):hover { transform: none; background: var(--accent); }
-.circular-carousel__card:has(.project-card__try:hover) .project-card__try:not(.project-card__try--disabled) {
+.circular-carousel__card:has(.project-card__try:not(.project-card__try--disabled):hover) .project-card__try {
   transform: translateY(-2px);
   background: color-mix(in srgb, var(--accent) 88%, var(--text));
 }

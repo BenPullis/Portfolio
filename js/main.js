@@ -1,4 +1,4 @@
-import { CLASSES } from "./classes.js";
+import CLASSES from "../src/data/classes.json";
 
 (() => {
   const $ =(s, el = document) => el.querySelector(s);
@@ -7,16 +7,21 @@ import { CLASSES } from "./classes.js";
 
   /* ---------- Theme ---------- */
   const root = document.documentElement;
-  const themeBtn = $("#themeToggle");
+  const themeSwitch = $("#themeToggle");
   const setTheme = (t) => {
     root.dataset.theme = t;
-    themeBtn.innerHTML = t === "dark" ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    $$("[data-theme-option]", themeSwitch).forEach((b) => b.setAttribute("aria-pressed", b.dataset.themeOption === t));
     try { localStorage.setItem("theme", t); } catch (e) {}
   };
   let saved = null;
   try { saved = localStorage.getItem("theme"); } catch (e) {}
   setTheme(saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"));
-  themeBtn.addEventListener("click", () => setTheme(root.dataset.theme === "dark" ? "light" : "dark"));
+  themeSwitch.addEventListener("click", (e) => {
+    const option = e.target.closest("[data-theme-option]");
+    if (option) setTheme(option.dataset.themeOption);
+  });
+  // Turn on the slide animation only after the starting theme is drawn.
+  requestAnimationFrame(() => requestAnimationFrame(() => themeSwitch.classList.add("is-ready")));
 
   /* ---------- Mobile nav ---------- */
   const nav = $("#nav");
@@ -34,19 +39,16 @@ import { CLASSES } from "./classes.js";
   });
   $$("a", navLinks).forEach((a) => a.addEventListener("click", closeMenu));
 
-  /* ---------- Scroll: progress bar, nav shadow, back-to-top ---------- */
+  /* ---------- Scroll: progress bar, nav shadow ---------- */
   const progress = $(".scroll-progress");
-  const toTop = $("#toTop");
   const onScroll = () => {
     const h = document.documentElement;
     const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
     progress.style.width = pct + "%";
     nav.classList.toggle("is-scrolled", h.scrollTop > 20);
-    toTop.classList.toggle("is-visible", h.scrollTop > 600);
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-  toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
   /* ---------- Active nav link ---------- */
   const sections = $$("main section[id]");
@@ -83,7 +85,22 @@ import { CLASSES } from "./classes.js";
   }
 
   /* ---------- Classes grid + filters ---------- */
+  // Filter buttons are built from the tags in classes.json: one per category, most classes first,
+  // between "All" and "In Progress". The "current" tag is special: it highlights the class and
+  // feeds the "In Progress" filter instead of getting its own category button.
   const grid = $("#classGrid");
+  const filters = $("#classFilters");
+  const counts = new Map();
+  CLASSES.forEach((c) => c.tags.forEach((t) => t !== "current" && counts.set(t, (counts.get(t) || 0) + 1)));
+  const categories = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a));
+  [["all", "All"], ...categories.map((t) => [t, t]), ["current", "In Progress"]].forEach(([value, label]) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "filter" + (value === "all" ? " is-active" : "");
+    btn.dataset.filter = value;
+    btn.textContent = label;
+    filters.append(btn);
+  });
   const render = (filter) => {
     const list = filter === "all" ? CLASSES : CLASSES.filter((c) => c.tags.includes(filter));
     grid.innerHTML = list.map((c) => `
@@ -94,13 +111,13 @@ import { CLASSES } from "./classes.js";
       </div>`).join("");
   };
   render("all");
-  $$("#classFilters .filter").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      $$("#classFilters .filter").forEach((b) => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
-      grid.classList.add("is-swapping");
-      setTimeout(() => { render(btn.dataset.filter); grid.classList.remove("is-swapping"); }, 180);
-    });
+  filters.addEventListener("click", (e) => {
+    const btn = e.target.closest(".filter");
+    if (!btn) return;
+    $$(".filter", filters).forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    grid.classList.add("is-swapping");
+    setTimeout(() => { render(btn.dataset.filter); grid.classList.remove("is-swapping"); }, 180);
   });
 
   /* ---------- Hero particle network ---------- */

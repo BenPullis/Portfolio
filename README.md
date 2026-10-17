@@ -24,12 +24,12 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 ## Features
 
 - **Single page, seven sections:** About, Education, Experience, Projects, Skills, Classes, and Contact, plus a full-height hero.
-- **Light and dark themes:** follows the operating system preference on the first visit, then remembers the visitor's choice in `localStorage`.
+- **Light and dark themes:** follows the operating system preference on the first visit, then remembers the visitor's choice in `localStorage`. Visitors switch with a sliding Light/Dark toggle in the nav (based on hover.dev's Slider Toggle).
 - **Animated hero background:** a particle network drawn on a `<canvas>` that links nearby points and reacts to the pointer. Its color follows the active theme.
 - **Typing effect:** the hero cycles through a short list of roles.
 - **3D lanyard:** an ID badge with the headshot hangs in the hero and can be dragged, swung, and clicked to flip (React + three.js). On screens 900px wide or narrower it is replaced by a static headshot in the About section.
-- **Filterable class list:** courses are rendered from a data file and can be filtered by area (Systems, Software Engineering, Web/Data/Cloud, AI/Graphics/Vis, Theory & Math, In Progress).
-- **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, a back-to-top button, and a collapsible menu on small screens.
+- **Filterable class list:** courses are rendered from a data file and can be filtered by area. The filter buttons are built from the categories in that file, plus All and In Progress.
+- **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, and a collapsible menu on small screens.
 - **Responsive layout:** breakpoints at 900px and 600px.
 - **Resume download:** linked from the nav as a PDF.
 - **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards drift slowly, snap into place, fade out at the edges, and can link to a live demo or the source code. A **Change Layout** button switches to a grid of all the cards.
@@ -85,7 +85,6 @@ Portfolio/
 ├── css/
 │   └── main.css                Styles; theme tokens are at the top
 ├── js/
-│   ├── classes.js              Course data for the Classes section
 │   └── main.js                 Non-React interactive behavior
 ├── src/                        React code
 │   ├── main.jsx                Mounts React components into index.html
@@ -95,6 +94,7 @@ Portfolio/
 │   │   ├── MyLanyard.jsx       The hero lanyard's settings (props) and mobile cutoff
 │   │   └── ProjectCarousel.*   Project cards shown in the carousel
 │   └── data/
+│       ├── classes.json        Course list for the Classes section
 │       └── projects.json       Project card content
 └── public/                     Copied into the build as is
     └── assets/
@@ -105,7 +105,7 @@ Portfolio/
 
 [js/main.js](js/main.js) is one self-contained script, organized into commented blocks: theme, mobile nav, scroll effects, active nav link, typed roles, classes grid and filters, and the hero particle network.
 
-`main.js` imports the `CLASSES` array from `classes.js`.
+`main.js` imports the course list from [src/data/classes.json](src/data/classes.json). It's plain JavaScript, not React, but Vite lets it import JSON the same way the React code imports `projects.json`.
 
 ### React components
 
@@ -124,14 +124,14 @@ Components can use the site's CSS classes (`btn`, `muted`, `mono`, …) and them
 | About, education, experience, skills, contact text | The matching section in [index.html](index.html). Each one is marked with a banner comment such as `<!-- ============ SKILLS ============ -->`. |
 | Page title, description, and social preview text | The `<head>` of [index.html](index.html) |
 | Roles shown by the typing effect | The `roles` array in [js/main.js](js/main.js) |
-| Classes | The `CLASSES` array in [js/classes.js](js/classes.js) |
+| Classes | [src/data/classes.json](src/data/classes.json) |
 | Project carousel cards | [src/data/projects.json](src/data/projects.json) (see below) |
 | Resume | Replace `public/assets/BenPullis-Resume.pdf`, keeping the filename |
 | Headshot | Replace both `public/assets/headshot.jpg` and `public/assets/headshot.webp`. The hero lanyard uses the `.jpg`; the mobile-only About photo uses both. |
 
 ### Project cards
 
-Each object in [src/data/projects.json](src/data/projects.json) becomes one card. Add or remove objects to change the number of cards. The first project starts in front, and the rest follow to its right in file order. Because the carousel is a loop, the last project sits to the left of the first.
+Each object in [src/data/projects.json](src/data/projects.json) becomes one card. Add or remove objects to change the number of cards. Cards run left to right in file order. The second project starts in front, with the first just to its left. To change which project starts in front, set `START_INDEX` near the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx) (`0` = first project). Because the carousel is a loop, the last project sits to the left of the first. The grid layout always starts with the first project.
 
 ```json
 {
@@ -195,26 +195,25 @@ At 900px wide and narrower the lanyard isn't rendered, and the headshot in the A
 
 ### Adding a class
 
-Each entry in [js/classes.js](js/classes.js) looks like this:
+Each entry in [src/data/classes.json](src/data/classes.json) looks like this, one per line. Classes show in file order, so keep the newest at the top:
 
-```js
-{ code: "CSCI 4521", name: "Applied Machine Learning", term: "Fall 2026", tags: ["ai", "current"] },
+```json
+{ "code": "CSCI 4521", "name": "Applied Machine Learning", "term": "Fall 2026", "tags": ["AI & Machine Learning", "current"] },
 ```
 
-`tags` decides which filter buttons show the course. A course can have more than one.
+It's JSON, so every key and string needs double quotes, there's no comma after the last entry, and comments aren't allowed.
 
-| Tag | Filter button |
-| --- | --- |
-| `systems` | Systems |
-| `software` | Software Engineering |
-| `web` | Web, Data & Cloud |
-| `ai` | AI, Graphics & Vis |
-| `theory` | Theory & Math |
-| `current` | In Progress |
+`tags` are the category names, written exactly as they should appear on the filter buttons. A course can have more than one. The filter buttons are built from these tags automatically, so there's nothing to edit in `index.html`:
+
+- **All** comes first.
+- Then one button per category, with the categories that have the most classes first. A new tag gets its own button, and a tag no class uses anymore disappears.
+- **In Progress** comes last and shows classes tagged `current`.
+
+Spelling matters: `"Algorithms & Math"` and `"Algorithms and Math"` would make two separate buttons.
 
 A course tagged `current` shows "In progress" in place of its term and is highlighted in the accent color. Remove the tag when the semester ends.
 
-To add a new filter category, add a `<button class="filter" data-filter="yourtag">` inside `#classFilters` in [index.html](index.html), then use `yourtag` in the data.
+The buttons wrap into two even rows of 4. That balance comes from `--filters-width` on `.filters` in [css/main.css](css/main.css), so if you add or rename categories, adjust it until the rows look even. On screens 800px wide and narrower, the two rows keep that width and scroll sideways.
 
 ### Section titles
 
@@ -233,6 +232,10 @@ To change the accent color, update these in both blocks:
 - `--accent` and `--accent-2`: the color itself
 - `--on-accent`: text color used on top of the accent
 - `--particle`: the same accent as comma-separated RGB values, used by the hero canvas
+
+Buttons (`.btn` in [css/main.css](css/main.css)) are styled to match the Light/Dark toggle: pill-shaped, medium-weight text, and a 1px border. Filled buttons (`btn--primary`) look like the toggle's selected side, and outline buttons (`btn--outline`) have an accent border and text. `btn--small` buttons, like Resume, are the same height as the toggle. Buttons lift 2px on hover (the toggle doesn't).
+
+The Light/Dark toggle in the nav is plain HTML (`#themeToggle` in [index.html](index.html)), styled by the `.theme-switch` rules in [css/main.css](css/main.css) and wired up in the Theme block of [js/main.js](js/main.js). The sliding pill uses `--accent`, and its springy motion is the `cubic-bezier` on `.theme-switch__thumb`.
 
 The favicon is an inline SVG in the `<head>` of [index.html](index.html) with its own hardcoded colors, as is the `theme-color` meta tag. Update those separately if the palette changes.
 

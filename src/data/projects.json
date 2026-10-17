@@ -8,60 +8,20 @@
     "link": ""
   },
   {
-    "title": "Castle Defense",
-    "description": "A 2D tower defense game where players strategically place defensive blocks to protect a portal from incoming enemies. Features physics-based movement, sound effects, and collision detection. Built with TypeScript using Node.js and npm for development, with deployment to GitHub Pages through GitHub Actions.",
-    "from": "CSCI 4611 - Programming Graphics & Games",
-    "dates": "Spring 2026",
-    "button": "try",
-    "link": "https://csci-4611-spring-2026.github.io/assignment-1-castle-defense-BenPullis/"
-  },
-  {
-    "title": "Marble Racing",
-    "description": "A 3D racing game where players control a marble through obstacle filled tracks while competing against other marbles. Features simulated gravity, friction, collision handling, and camera-relative movement. Built with TypeScript and GopherGfx, using Node.js and npm for development, with deployment to GitHub Pages through GitHub Actions.",
-    "from": "CSCI 4611 - Programming Graphics & Games",
-    "dates": "Spring 2026",
-    "button": "try",
-    "link": "https://csci-4611-spring-2026.github.io/assignment-02-marble-racing-BenPullis/"
-  },
-  {
-    "title": "Earthquake Visualization",
-    "description": "An interactive visualization of global earthquakes from 1905–2007, featuring smooth transitions between a 2D map and a 3D globe. Animates earthquake activity over time, using marker size and color to represent magnitude. Built with TypeScript and GopherGfx using NASA Earth imagery and USGS earthquake data, and deployed to GitHub Pages through GitHub Actions.",
-    "from": "CSCI 4611 - Programming Graphics & Games",
-    "dates": "Spring 2026",
-    "button": "try",
-    "link": "https://csci-4611-spring-2026.github.io/assignment-03-earthquake-visualization-BenPullis/"
-  },
-  {
-    "title": "So You Think Ants Can Dance",
-    "description": "An interactive animation project that brings dancing characters to life using Carnegie Mellon motion capture data. Features custom character models, skeletal animation, and smooth transitions between idle poses and user-selected dance moves. Built with TypeScript using hierarchical scene graphs and matrix transformations, and deployed to GitHub Pages through GitHub Actions.",
-    "from": "CSCI 4611 - Programming Graphics & Games",
-    "dates": "Spring 2026",
-    "button": "try",
-    "link": "https://csci-4611-spring-2026.github.io/assignment-04-so-you-think-ants-can-dance-BenPullis/"
-  },
-  {
-    "title": "Artistic Rendering",
-    "description": "An interactive 3D model viewer showcasing lighting and shading techniques, including Gouraud, Phong, cartoon shading with silhouette outlines, and normal mapping for detailed surfaces. Built with custom GLSL shaders, TypeScript, and GopherGfx, and deployed to GitHub Pages through GitHub Actions.",
-    "from": "CSCI 4611 - Programming Graphics & Games",
-    "dates": "Spring 2026",
-    "button": "try",
-    "link": "https://csci-4611-spring-2026.github.io/assignment-05-artistic-rendering-BenPullis/"
-  },
-  {
-    "title": "A World Made Of Drawings",
-    "description": "An interactive world building program that turns mouse drawings into sky artwork, standing objects, and terrain with hills and valleys. Built with TypeScript using ray casting, intersection testing, and dynamic mesh editing, and deployed to GitHub Pages through GitHub Actions.",
-    "from": "CSCI 4611 - Programming Graphics & Games",
-    "dates": "Spring 2026",
-    "button": "try",
-    "link": "https://csci-4611-spring-2026.github.io/assignment-06-a-world-made-of-drawings-BenPullis/"
-  },
-  {
-    "title": "Final Memo",
+    "title": "Blog Website",
     "description": "TODO",
-    "from": "APEC 1201 - Excel in Economics and Mgmnt",
-    "dates": "Fall 2026",
+    "from": "CSCI 4131 - Internet Programming",
+    "dates": "Fall 2025",
     "button": "soon",
     "link": ""
+  },
+  {
+    "title": "Drone Simulation",
+    "description": "A 3D simulation where users schedule package deliveries across the University of Minnesota campus. Features selectable pathfinding algorithms, dynamic package handoffs between drones, and automatic battery recharging. Built in C++ using Factory, Observer, and Strategy design patterns, with Docker for containerization and Jira, GitHub, and UML supporting development within a four-person Agile team.",
+    "from": "CSCI 3081 - Program Design & Development",
+    "dates": "Spring 2025",
+    "button": "try",
+    "link": "https://hub.docker.com/repository/docker/benp14/drone_sim/general"
   },
   {
     "title": "Big Macflation",
@@ -88,6 +48,54 @@
     "link": ""
   },
   {
+    "title": "Earthquake Visualization",
+    "description": "An interactive visualization of global earthquakes from 1905–2007, featuring smooth transitions between a 2D map and a 3D globe. Animates earthquake activity over time, using marker size and color to represent magnitude. Built with TypeScript and GopherGfx using NASA Earth imagery and USGS earthquake data, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-03-earthquake-visualization-BenPullis/"
+  },
+  {
+    "title": "Artistic Rendering",
+    "description": "An interactive 3D model viewer showcasing lighting and shading techniques, including Gouraud, Phong, cartoon shading with silhouette outlines, and normal mapping for detailed surfaces. Built with custom GLSL shaders, TypeScript, and GopherGfx, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-05-artistic-rendering-BenPullis/"
+  },
+  {
+    "title": "So You Think Ants Can Dance",
+    "description": "An interactive animation project that brings dancing characters to life using Carnegie Mellon motion capture data. Features custom character models, skeletal animation, and smooth transitions between idle poses and user-selected dance moves. Built with TypeScript using hierarchical scene graphs and matrix transformations, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-04-so-you-think-ants-can-dance-BenPullis/"
+  },
+  {
+    "title": "A World Made Of Drawings",
+    "description": "An interactive world building program that turns mouse drawings into sky artwork, standing objects, and terrain with hills and valleys. Built with TypeScript using ray casting, intersection testing, and dynamic mesh editing, and deployed to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-06-a-world-made-of-drawings-BenPullis/"
+  },
+  {
+    "title": "Marble Racing",
+    "description": "A 3D racing game where players control a marble through obstacle filled tracks while competing against other marbles. Features simulated gravity, friction, collision handling, and camera-relative movement. Built with TypeScript and GopherGfx, using Node.js and npm for development, with deployment to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-02-marble-racing-BenPullis/"
+  },
+  {
+    "title": "Castle Defense",
+    "description": "A 2D tower defense game where players strategically place defensive blocks to protect a portal from incoming enemies. Features physics-based movement, sound effects, and collision detection. Built with TypeScript using Node.js and npm for development, with deployment to GitHub Pages through GitHub Actions.",
+    "from": "CSCI 4611 - Programming Graphics & Games",
+    "dates": "Spring 2026",
+    "button": "try",
+    "link": "https://csci-4611-spring-2026.github.io/assignment-1-castle-defense-BenPullis/"
+  },
+  {
     "title": "Vector Database",
     "description": "TODO",
     "from": "CSCI 4980 - Cloud Computing",
@@ -104,28 +112,12 @@
     "link": ""
   },
   {
-    "title": "Blog Website",
-    "description": "TODO",
-    "from": "CSCI 4131 - Internet Programming",
-    "dates": "Fall 2025",
-    "button": "soon",
-    "link": ""
-  },
-  {
     "title": "Sports Memorabilia Website",
     "description": "TODO",
     "from": "CSCI 4131 - Internet Programming",
     "dates": "Fall 2025",
     "button": "soon",
     "link": ""
-  },
-  {
-    "title": "Drone Simulation",
-    "description": "A 3D simulation where users schedule package deliveries across the University of Minnesota campus. Features selectable pathfinding algorithms, dynamic package handoffs between drones, and automatic battery recharging. Built in C++ using Factory, Observer, and Strategy design patterns, with Docker for containerization and Jira, GitHub, and UML supporting development within a four-person Agile team.",
-    "from": "CSCI 3081 - Program Design & Development",
-    "dates": "Spring 2025",
-    "button": "try",
-    "link": "https://hub.docker.com/repository/docker/benp14/drone_sim/general"
   },
   {
     "title": "Lisp Interpreter",
@@ -156,6 +148,14 @@
     "description": "TODO",
     "from": "CSCI 1933 - Intro to Algorithms & Data Structures",
     "dates": "Spring 2024",
+    "button": "soon",
+    "link": ""
+  },
+  {
+    "title": "Final Memo",
+    "description": "TODO",
+    "from": "APEC 1201 - Excel in Economics and Mgmnt",
+    "dates": "Fall 2026",
     "button": "soon",
     "link": ""
   }
