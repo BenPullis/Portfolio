@@ -43,6 +43,7 @@ VS Code's "Go Live" / Live Server does **not** work. The source `index.html` loa
 - Check visual changes in a real browser at desktop (~1440px) and phone (~390px) widths, and in both themes, before calling them done. Several bugs (the split hover button, the fisheye warping) only showed up visually. One way: use `puppeteer-core` with the installed Chrome at `/Applications/Google Chrome.app`, installed in a scratch folder rather than the project.
 - Keep the README up to date when behavior or structure changes. He asked for this before pushing.
 - Ask before committing or pushing. He runs git himself.
+- Ask questions about any ambiguous questions instead of assuming what he wants. he is open to ideas that may be better than what he suggests. he is happy to answer questions. 
 
 ## Status (as of Oct. 16, 2026)
 

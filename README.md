@@ -27,6 +27,7 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 - **Light and dark themes:** follows the operating system preference on the first visit, then remembers the visitor's choice in `localStorage`.
 - **Animated hero background:** a particle network drawn on a `<canvas>` that links nearby points and reacts to the pointer. Its color follows the active theme.
 - **Typing effect:** the hero cycles through a short list of roles.
+- **3D lanyard:** an ID badge with the headshot hangs in the hero and can be dragged, swung, and clicked to flip (React + three.js). On screens 900px wide or narrower it is replaced by a static headshot in the About section.
 - **Filterable class list:** courses are rendered from a data file and can be filtered by area (Systems, Software Engineering, Web/Data/Cloud, AI/Graphics/Vis, Theory & Math, In Progress).
 - **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, a back-to-top button, and a collapsible menu on small screens.
 - **Responsive layout:** breakpoints at 900px and 600px.
@@ -41,6 +42,7 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 | Styling | Plain CSS with custom properties ([css/main.css](css/main.css)) |
 | Behavior | Vanilla JavaScript modules ([js/main.js](js/main.js)) |
 | Components | React 19, mounted into specific elements ([src/main.jsx](src/main.jsx)) |
+| 3D | [three.js](https://threejs.org/), used by the hero lanyard |
 | Build | Vite |
 | Icons | [Font Awesome 6.5.1](https://fontawesome.com/) from cdnjs |
 | Fonts | IBM Plex Sans and IBM Plex Mono from Google Fonts |
@@ -89,6 +91,8 @@ Portfolio/
 │   ├── main.jsx                Mounts React components into index.html
 │   ├── components/
 │   │   ├── CircularCarousel.*  3D carousel (from React Bits, adapted for cards)
+│   │   ├── Lanyard.*           3D ID-badge lanyard (from React Bits, unmodified)
+│   │   ├── MyLanyard.jsx       The hero lanyard's settings (props) and mobile cutoff
 │   │   └── ProjectCarousel.*   Project cards shown in the carousel
 │   └── data/
 │       └── projects.json       Project card content
@@ -123,7 +127,7 @@ Components can use the site's CSS classes (`btn`, `muted`, `mono`, …) and them
 | Classes | The `CLASSES` array in [js/classes.js](js/classes.js) |
 | Project carousel cards | [src/data/projects.json](src/data/projects.json) (see below) |
 | Resume | Replace `public/assets/BenPullis-Resume.pdf`, keeping the filename |
-| Headshot | Replace both `public/assets/headshot.jpg` and `public/assets/headshot.webp` |
+| Headshot | Replace both `public/assets/headshot.jpg` and `public/assets/headshot.webp`. The hero lanyard uses the `.jpg`; the mobile-only About photo uses both. |
 
 ### Project cards
 
@@ -174,6 +178,14 @@ The carousel's behavior is set by props on `<CircularCarousel>` in the same file
 | `speed`, `autoplay`, `direction` | Drift speed; `"drift"` (continuous), `"step"` (one card at a time), or `"off"`; and direction |
 
 Card styling is in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css). The carousel draws each card as several vertical strips so it can curve, and each strip holds its own copy of the card's content. Any hover effect inside a card therefore has to be triggered from the whole card (see the `:has()` rule for the button in that file), or only the slice under the mouse will react.
+
+### Hero lanyard
+
+The lanyard's look and physics are props on `<Lanyard>` in [src/components/MyLanyard.jsx](src/components/MyLanyard.jsx), such as `size` (card size), `anchor` (`"left"`, `"center"`, or `"right"`: where it hangs), `strapLength`, `finish`, `strapColor`, and `gravity`. Image paths are relative to the page, so use `assets/...`, not `/assets/...` or `public/...`.
+
+It fills the whole hero, behind the text, so the card can be swung anywhere without being cut off (the `#my-lanyard` rule in [css/main.css](css/main.css)). The hero text stays clickable, and clicks on the empty space around it reach the card.
+
+At 900px wide and narrower the lanyard isn't rendered, and the headshot in the About section (`.about__card`) shows instead. The cutoff is `MOBILE_QUERY` in `MyLanyard.jsx` and the `@media (max-width: 900px)` block in `main.css`; change both together.
 
 ### Adding a class
 

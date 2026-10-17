@@ -5,9 +5,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import ProjectCarousel from "./components/ProjectCarousel";
+import MyLanyard from "./components/MyLanyard";
 
 const islands = {
   "project-carousel": ProjectCarousel,
+  "my-lanyard": MyLanyard
 };
 
 for (const [id, Component] of Object.entries(islands)) {
