@@ -23,7 +23,7 @@ VS Code's "Go Live" / Live Server does **not** work. The source `index.html` loa
 
 ## Project carousel: traps to know
 
-- [src/components/CircularCarousel.jsx](src/components/CircularCarousel.jsx) started as a React Bits component (installed through the shadcn registry) and has been **modified heavily**. Never reinstall or overwrite it. Added props: `renderItem`, `ariaLabel`, `onItemActivate`, `viewDistance`, `edgeFade`. The stock demo images were deleted, so `items` is required and must be non-empty.
+- [src/components/CircularCarousel.jsx](src/components/CircularCarousel.jsx) started as a React Bits component (installed through the shadcn registry) and has been **modified heavily**. Never reinstall or overwrite it. Added props: `renderItem`, `ariaLabel`, `onItemActivate`, `viewDistance`, `edgeFade`, `apiRef` (gives `{ next(), prev() }` for outside buttons). The stock demo images were deleted, so `items` is required and must be non-empty.
 - **Cards are drawn as several vertical strips** so they can curve, and every strip holds a full copy of the card's DOM. Consequences:
   - A plain `:hover` on an element inside a card only affects the slice under the mouse. Trigger hover effects from the whole card with `.circular-carousel__card:has(... :hover) ...` (see the Try Me button in `ProjectCarousel.css`).
   - Links in cards use `tabIndex={-1}` because of the duplicates. Keyboard users press Enter on the focused carousel, which calls `onItemActivate`.

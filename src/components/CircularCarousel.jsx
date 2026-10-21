@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import './CircularCarousel.css';
 
@@ -149,6 +149,9 @@ const CircularCarousel = ({
   onItemClick,
   // Called on Enter/Space for the front card. Defaults to onItemClick.
   onItemActivate = onItemClick,
+  // Optional ref that receives { next(), prev() } so outside buttons can move the carousel.
+  // next() brings the card on the right to the front, like the right arrow key.
+  apiRef,
   className = '',
   style
 }) => {
@@ -660,6 +663,8 @@ const CircularCarousel = ({
     state.holdUntil = performance.now() + 2800;
     wakeRef.current();
   }, []);
+
+  useImperativeHandle(apiRef, () => ({ next: () => stepBy(1), prev: () => stepBy(-1) }), [stepBy]);
 
   const updatePointer = event => {
     const rect = rootRef.current.getBoundingClientRect();

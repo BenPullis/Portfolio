@@ -1,9 +1,29 @@
 .project-carousel {
   position: relative;
   width: 100%;
-  height: 560px;
+  height: 620px;
   margin-top: 2.5rem;
 }
+
+/* Short light-grey bar centered under the front card. --card-h (the card height) is set in CarouselView. */
+.project-carousel__marker {
+  position: absolute; z-index: 5; left: 50%; top: calc(50% + var(--card-h) / 2 + 14px);
+  width: 110px; height: 3px; margin-left: -55px; border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 55%, transparent); pointer-events: none;
+}
+
+/* Right-edge arrow that points visitors rightward through the carousel (see CarouselView) */
+.project-carousel__next {
+  position: absolute; z-index: 5; top: calc(50% - 22px); right: 1.5rem;
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--accent); background: var(--bg-alt); color: var(--accent);
+  font-size: 1rem; cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.project-carousel__next:hover { background: var(--accent); color: var(--on-accent); }
+.project-carousel__next:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.project-carousel__next.is-nudging { animation: carousel-nudge 1.6s ease-in-out infinite; }
+@keyframes carousel-nudge { 50% { translate: 6px 0; } }
 
 /* Grid layout: 3 columns, dropping to 2 and then 1 on smaller screens (see the media queries below).
    Cards are at least the carousel's shape (CARD_ASPECT in ProjectCarousel.jsx) but grow to fit
@@ -64,7 +84,9 @@
   .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
-  .project-carousel { height: 460px; }
+  .project-carousel { height: 630px; }
+  /* No room beside the card on phones, so the arrow sits just below its bottom-right corner */
+  .project-carousel__next { top: auto; bottom: -14px; right: 1.25rem; width: 40px; height: 40px; }
   .project-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .project-grid .project-card { aspect-ratio: auto; min-height: 340px; }
 }

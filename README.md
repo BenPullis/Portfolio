@@ -32,7 +32,7 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 - **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, and a collapsible menu on small screens.
 - **Responsive layout:** breakpoints at 900px and 600px.
 - **Resume download:** linked from the nav as a PDF.
-- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards drift slowly, snap into place, fade out at the edges, and can link to a live demo or the source code. A **Change Layout** button switches to a grid of all the cards.
+- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards are dragged or arrow-keyed into place (no auto-spin), snap into position, fade out at the edges, and can link to a live demo or the source code. A **Change Layout** button switches to a grid of all the cards.
 
 ## Tech stack
 
@@ -170,6 +170,7 @@ Card size is set by constants at the top of [src/components/ProjectCarousel.jsx]
 | `CARD_WIDTH` | Card width in px. Bigger cards mean fewer on screen at once. |
 | `CARD_ASPECT` | Width ÷ height. `1` is square, higher is wider and shorter. |
 | `SCREEN_MARGIN` | On narrow screens, cards shrink to the screen width minus this many px. |
+| `NARROW_CARD_HEIGHT` | Card height in px once cards have shrunk. Narrow cards keep this height instead of `CARD_ASPECT`, because their text wraps onto more lines. |
 
 If cards get much taller, raise the `height` of `.project-carousel` in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css) so they have room.
 
@@ -181,7 +182,11 @@ The carousel's behavior is set by props on `<CircularCarousel>` in the same file
 | `viewDistance` | How far back the viewer sits. Higher values flatten the side cards; `1` gives a strong fisheye look. |
 | `curve` | How much each card bends with the ring, from `0` (flat) to `1` |
 | `edgeFade` | Degrees over which cards fade out at the sides. `0` cuts them off instantly. |
-| `speed`, `autoplay`, `direction` | Drift speed; `"drift"` (continuous), `"step"` (one card at a time), or `"off"`; and direction |
+| `speed`, `autoplay`, `direction` | Drift speed; `"drift"` (continuous), `"step"` (one card at a time), or `"off"` (currently `"off"`); and direction |
+
+A short light-grey bar (`.project-carousel__marker`) sits centered under the card in front. The front card always snaps to the center, so the bar stays in place.
+
+A round arrow button on the right edge of the carousel shows visitors to browse to the right. It nudges right until they first click, drag, or press a key on the carousel, then sits still. Clicking it brings the next card (the one on the right) to the front, the same as the right arrow key. On phones it sits just below the card's bottom-right corner. Its look is `.project-carousel__next` in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css), and it moves the carousel through the `apiRef` prop added to `CircularCarousel`.
 
 Card styling is in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css). The carousel draws each card as several vertical strips so it can curve, and each strip holds its own copy of the card's content. Any hover effect inside a card therefore has to be triggered from the whole card (see the `:has()` rule for the button in that file), or only the slice under the mouse will react.
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import CircularCarousel from "./CircularCarousel";
@@ -12,13 +12,15 @@ const START_INDEX = 1;
 
 // The ring places each next item to the left of the one before it. Walking backwards through
 // projects.json from START_INDEX puts the file in left-to-right order instead, with
-// projects[START_INDEX] in front. Autoplay drifts left, so it plays them in order too.
+// projects[START_INDEX] in front. If autoplay is turned on, it drifts left, so it plays them in order too.
 const ringOrder = projects.map((_, k) => projects[(((START_INDEX - k) % projects.length) + projects.length) % projects.length]);
 
 // ---- Card size: change these to resize the cards ----
 const CARD_WIDTH = 380; // px. Bigger cards = fewer on screen at once.
-const CARD_ASPECT = 0.9; // width ÷ height. 1 = square, higher = wider and shorter.
+const CARD_ASPECT = 0.79; // width ÷ height. 1 = square, lower = taller. Tall enough for the longest description.
 const SCREEN_MARGIN = 48; // px. On narrow screens, cards shrink to the screen width minus this.
+const NARROW_CARD_HEIGHT = 555; // px. Once cards shrink, they keep this height instead of CARD_ASPECT, since narrower cards wrap text onto more lines.
+// If cards get taller, raise the .project-carousel heights in ProjectCarousel.css so they have room.
 
 // Card width that still fits on small screens.
 const useCardWidth = () => {
@@ -118,11 +120,33 @@ const ProjectCarousel = () => {
 };
 
 // The carousel layout (the default).
+// The arrow button on the right edge shows visitors to browse rightward. It nudges right until
+// they first touch the carousel, then sits still. Its look is .project-carousel__next in ProjectCarousel.css.
 const CarouselView = () => {
   const cardWidth = useCardWidth();
+  const aspect = cardWidth < CARD_WIDTH ? cardWidth / NARROW_CARD_HEIGHT : CARD_ASPECT;
+  const carousel = useRef(null);
+  const [nudging, setNudging] = useState(true);
+  const stopNudging = () => setNudging(false);
   return (
-    <div className="project-carousel">
+    <div
+      className="project-carousel"
+      style={{ "--card-h": `${cardWidth / aspect}px` }}
+      onPointerDownCapture={stopNudging}
+      onKeyDownCapture={stopNudging}
+    >
+      {/* Light-grey bar under the card in front. The front card always snaps to the center, so it stays put. */}
+      <span className="project-carousel__marker" aria-hidden="true"></span>
+      <button
+        type="button"
+        className={"project-carousel__next" + (nudging ? " is-nudging" : "")}
+        aria-label="Next project"
+        onClick={() => carousel.current?.next()}
+      >
+        <i className="fa-solid fa-chevron-right"></i>
+      </button>
       <CircularCarousel
+        apiRef={carousel}
         items={ringOrder}
         renderItem={(project) => <ProjectCard project={project} />}
         ariaLabel="Projects carousel"
@@ -130,7 +154,7 @@ const CarouselView = () => {
         preset="panorama"
         intro="assemble"
         cardWidth={cardWidth}
-        aspectRatio={CARD_ASPECT}
+        aspectRatio={aspect}
         speed={2}
         captions={false}
         gap={20}
@@ -138,7 +162,7 @@ const CarouselView = () => {
         curve={50}
         viewDistance={2.6}
         edgeFade={45}
-        autoplay="drift"
+        autoplay="off" // "drift" = slow continuous spin, "step" = one card at a time
         interval={1.5}
         direction="left"
         momentum={0.69}

@@ -8,12 +8,12 @@
     "link": ""
   },
   {
-    "title": "Blog Website",
-    "description": "TODO",
+    "title": "Minnesota Sports Blog",
+    "description": "A full-stack sports blog where Minnesota fans can share posts and discuss the Vikings, Wild, Timberwolves, and Twins. Features user accounts with bcrypt password hashing, session-based login, admin moderation, team categories, and full CRUD functionality for posts and comments. Built with Node.js, Express, Pug templating, and a MySQL database hosted on Aiven, and deployed to Render. NOTE: Loading the site may take a few seconds.",
     "from": "CSCI 4131 - Internet Programming",
     "dates": "Fall 2025",
-    "button": "soon",
-    "link": ""
+    "button": "try",
+    "link": "https://sotasportstalk.onrender.com/"
   },
   {
     "title": "Drone Simulation",
@@ -25,7 +25,7 @@
   },
   {
     "title": "Big Macflation",
-    "description": "TODO",
+    "description": "Coming Soon",
     "from": "CSCI 5609 - Visualization",
     "dates": "Fall 2026",
     "button": "soon",
@@ -33,7 +33,7 @@
   },
   {
     "title": "Coming Soon",
-    "description": "TODO",
+    "description": "Coming Soon",
     "from": "CSCI 4821 - GenAI for Software Engineering",
     "dates": "Fall 2026",
     "button": "soon",
@@ -41,11 +41,19 @@
   },
   {
     "title": "Coming Soon",
-    "description": "TODO",
+    "description": "Coming Soon",
     "from": "CSCI 4521 - Applied Machine Learning",
     "dates": "Fall 2026",
     "button": "soon",
     "link": ""
+  },
+  {
+    "title": "Sports Memorabilia Website",
+    "description": "A full-stack mock store where fans can order Minnesota collectibles like signed jerseys, game-used gear, and more. Features order placement with live price totals, live order tracking with a countdown to cancel or change shipping, shipping history, automatic status updates, and an order dashboard with search and status filters. Built withNode.js, Express, Pug templating, and a MySQL database hosted on Aiven, and deployed to Render. NOTE: Loading the site may take a few seconds.",
+    "from": "CSCI 4131 - Internet Programming",
+    "dates": "Fall 2025",
+    "button": "try",
+    "link": "https://sports-memorabilia-store.onrender.com/"
   },
   {
     "title": "Earthquake Visualization",
@@ -108,23 +116,7 @@
     "description": "TODO",
     "from": "CSCI 4801 - Software Development Process",
     "dates": "Fall 2025",
-    "button": "soon",
-    "link": ""
-  },
-  {
-    "title": "Sports Memorabilia Website",
-    "description": "TODO",
-    "from": "CSCI 4131 - Internet Programming",
-    "dates": "Fall 2025",
-    "button": "soon",
-    "link": ""
-  },
-  {
-    "title": "Lisp Interpreter",
-    "description": "TODO",
-    "from": "CSCI 2041 - Advanced Programming Principles",
-    "dates": "Fall 2024",
-    "button": "soon",
+    "button": "code",
     "link": ""
   },
   {
@@ -132,24 +124,32 @@
     "description": "TODO",
     "from": "CSCI 2021 - Machine Architecture & Organization",
     "dates": "Fall 2024",
-    "button": "soon",
-    "link": ""
+    "button": "code",
+    "link": "https://github.com/BenPullis/Early-College-Projects/tree/main/Contact_Log_Project"
   },
   {
     "title": "Chess",
     "description": "TODO",
     "from": "CSCI 1933 - Intro to Algorithms & Data Structures",
     "dates": "Spring 2024",
-    "button": "soon",
-    "link": ""
+    "button": "code",
+    "link": "https://github.com/BenPullis/Early-College-Projects/tree/main/Chess_Project"
   },
   {
     "title": "Minesweeper",
     "description": "TODO",
     "from": "CSCI 1933 - Intro to Algorithms & Data Structures",
     "dates": "Spring 2024",
-    "button": "soon",
-    "link": ""
+    "button": "code",
+    "link": "https://github.com/BenPullis/Early-College-Projects/tree/main/Minesweeper_Project"
+  },
+  {
+    "title": "Lisp Interpreter",
+    "description": "TODO",
+    "from": "CSCI 2041 - Advanced Programming Principles",
+    "dates": "Fall 2024",
+    "button": "code",
+    "link": "https://github.com/BenPullis/lisp-interpreter"
   },
   {
     "title": "Final Memo",
