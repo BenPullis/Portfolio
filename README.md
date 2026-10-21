@@ -2,7 +2,7 @@
 
 Personal portfolio site for Ben Pullis, a Computer Science student at the University of Minnesota. It is a single-page site written in plain HTML, CSS, and JavaScript, built with [Vite](https://vite.dev/). React is used for individual interactive pieces ("islands"), such as the project carousel, while the rest of the page stays plain HTML.
 
-**Live site:** TODO (not deployed yet)
+**Live site:** https://benpullis.github.io/Portfolio/
 
 <!-- TODO: add a screenshot or short GIF of the site here -->
 
@@ -272,24 +272,22 @@ TODO: test on real mobile devices.
 
 ## Deployment
 
-TODO: the site is not deployed yet.
+The site is hosted on GitHub Pages at https://benpullis.github.io/Portfolio/. [.github/workflows/deploy.yml](.github/workflows/deploy.yml) runs on every push to `main`: it runs `npm ci` and `npm run build`, then publishes `dist/`. Progress and errors show in the repository's **Actions** tab. **Settings → Pages → Build and deployment → Source** must be set to "GitHub Actions"; with "Deploy from a branch", Pages serves the unbuilt source files and the React parts, class list, and theme toggle don't work.
 
-Run `npm run build` and deploy the `dist/` folder. Don't deploy the repository root: the source `index.html` needs Vite to run. The build uses relative paths (`base: "./"` in [vite.config.js](vite.config.js)), so it also works from a subfolder, such as `https://benpullis.github.io/Portfolio/` on GitHub Pages.
+To deploy anywhere else, run `npm run build` and deploy the `dist/` folder. Don't deploy the repository root: the source `index.html` needs Vite to run. The build uses relative paths (`base: "./"` in [vite.config.js](vite.config.js)), so it also works from a subfolder, such as `https://benpullis.github.io/Portfolio/` on GitHub Pages.
 
-Options to decide between:
-
-- **GitHub Pages:** GitHub Pages can only serve the repository root or a `/docs` folder from a branch. To publish `dist/`, add a GitHub Actions workflow that runs `npm ci && npm run build` and deploys `dist/`, then set **Settings → Pages → Source** to "GitHub Actions".
-- **Netlify, Vercel, or Cloudflare Pages:** connect the repository and set the build command to `npm run build` and the output directory to `dist`.
+Other hosts (Netlify, Vercel, Cloudflare Pages) work too: connect the repository and set the build command to `npm run build` and the output directory to `dist`.
 
 Still to do:
 
-- [ ] Pick a host and deploy
+- [x] Pick a host and deploy (GitHub Pages)
 - [ ] Set up a custom domain (optional)
-- [ ] Add the live URL to the top of this README and to the GitHub repository description
+- [x] Add the live URL to the top of this README
+- [ ] Add the live URL to the GitHub repository description
 
 ## Roadmap
 
-- [ ] Deploy the site (see [Deployment](#deployment))
+- [x] Deploy the site (see [Deployment](#deployment))
 - [ ] Add a screenshot to this README
 - [ ] Fill in the remaining placeholder project cards in [src/data/projects.json](src/data/projects.json)
 - [ ] Add `og:image` and `og:url` meta tags so shared links show a preview image

@@ -49,6 +49,6 @@ VS Code's "Go Live" / Live Server does **not** work. The source `index.html` loa
 ## Status (as of Oct. 16, 2026)
 
 - The React restructure and carousel are committed and pushed to `origin/main` (`f579f74`).
-- **Not deployed yet.** The plan is GitHub Pages, which needs a GitHub Actions workflow (`.github/workflows/`) to build and publish `dist/`, plus **Settings → Pages → Source: GitHub Actions**. This hasn't been created yet.
+- **Deployment:** GitHub Pages at https://benpullis.github.io/Portfolio/, built and published by `.github/workflows/deploy.yml` on every push to `main`. Pages' Source must be "GitHub Actions"; "Deploy from a branch" serves the raw source, where the `.jsx` and the JSON import in `js/main.js` don't load.
 - 7 of the 14 cards in `projects.json` are still `"Project Title"` placeholders. "This Portfolio Website" is set to `"button": "none"` until it's deployed.
 - `index.html` still has a leftover `<!-- TODO: replace with high school name -->` comment in Education. The name is already filled in, so the comment can go. The README lists other TODOs (license, screenshot, `og:image`).
