@@ -32,7 +32,7 @@ Personal portfolio site for Ben Pullis, a Computer Science student at the Univer
 - **Navigation aids:** sticky nav that highlights the section in view, a scroll progress bar, and a collapsible menu on small screens.
 - **Responsive layout:** breakpoints at 900px and 600px.
 - **Resume download:** linked from the nav as a PDF.
-- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards are dragged or arrow-keyed into place (no auto-spin), snap into position, fade out at the edges, and can link to a live demo or the source code. A **Change Layout** button switches to a grid of all the cards.
+- **Project carousel:** a full-width, draggable 3D carousel of project cards (React), filled from a JSON file. Cards are dragged or arrow-keyed into place (no auto-spin), snap into position, fade out at the edges, and show each project's title, class, dates, and skills. Clicking a carousel card brings it to the middle, and its **View details** opens a popup with the full description and a link to a live demo or the source code. A **Change Layout** button switches to a grid of all the cards.
 
 ## Tech stack
 
@@ -131,7 +131,7 @@ Components can use the site's CSS classes (`btn`, `muted`, `mono`, …) and them
 
 ### Project cards
 
-Each object in [src/data/projects.json](src/data/projects.json) becomes one card. Add or remove objects to change the number of cards. Cards run left to right in file order. The second project starts in front, with the first just to its left. To change which project starts in front, set `START_INDEX` near the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx) (`0` = first project). Because the carousel is a loop, the last project sits to the left of the first. The grid layout always starts with the first project.
+Each object in [src/data/projects.json](src/data/projects.json) becomes one card. The card shows the title, `from`, `dates`, and `skills`; the description and button only show in the popup that opens from **View details** (see [Project popup](#project-popup)). Add or remove objects to change the number of cards. Cards run left to right in file order. The second project starts in front, with the first just to its left. To change which project starts in front, set `START_INDEX` near the top of [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx) (`0` = first project). Because the carousel is a loop, the last project sits to the left of the first. The grid layout always starts with the first project.
 
 ```json
 {
@@ -139,6 +139,7 @@ Each object in [src/data/projects.json](src/data/projects.json) becomes one card
   "description": "A sentence or two about the project.",
   "from": "CSCI 3081W – Program Design and Development",
   "dates": "Jan. 2025 – May 2025",
+  "skills": ["C++", "Docker", "UML"],
   "button": "try",
   "link": "https://example.com"
 }
@@ -147,9 +148,10 @@ Each object in [src/data/projects.json](src/data/projects.json) becomes one card
 | Field | Meaning |
 | --- | --- |
 | `title` | Project name |
-| `description` | Short summary. Keep it to about 2–4 sentences so it fits on the card. |
+| `description` | A few sentences about the project. Shown in the popup, which scrolls if it's long. |
 | `from` | The class, job, or person the project was for |
 | `dates` | Free text, e.g. `"Fall 2025"` or `"Jan. 2025 – May 2025"` |
+| `skills` | List of languages, tools, and skills used, shown as chips on the card and in the popup. Use `[]` for none. Around 3–6 keeps the card tidy. |
 | `button` | `"try"` shows a **Try Me!** button (for deployed projects), `"code"` shows **See The Code** (e.g. a GitHub repo), `"soon"` shows a **Coming Soon!** button that does nothing, `"none"` shows no button |
 | `link` | Where the button goes. If it's `""`, no button shows, whatever `button` says (except `"soon"`, which never needs a link). |
 
@@ -157,9 +159,17 @@ To change the button labels or icons, or to add a new `button` option, edit the 
 
 ### Layout toggle
 
-A **Change Layout** button next to the Projects heading switches between the carousel (the default on every page load) and a grid showing every card at once, in `projects.json` order. The grid uses the same card component. Its cards are at least the carousel's shape (`CARD_ASPECT`) but grow to fit their text, and every card is as tall as the tallest one so the rows stay even (on phones, each card is just as tall as its own text). It has 3 columns, dropping to 2 at 900px wide and 1 at 600px; those are the `.project-grid` rules in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css).
+A **Change Layout** button next to the Projects heading switches between the carousel (the default on every page load) and a grid showing every card at once, in `projects.json` order. The grid uses the same card component. Its cards fit their content (at least 240px tall), and every row is as tall as the tallest one so the grid stays even (on phones, each card is just as tall as its own content). It has 3 columns, dropping to 2 at 900px wide and 1 at 600px; those are the `.project-grid` rules in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css).
 
 The button is rendered by `ProjectCarousel.jsx` but placed in the `#project-layout-toggle` placeholder beside the `<h2>` in [index.html](index.html), using a React portal. The heading row is a `.section__head`, a wrapper you can reuse to put something just past any section title's line.
+
+### Project popup
+
+In the carousel, clicking a card spins it to the middle, and only clicking its **View details** opens the popup. In the grid, clicking anywhere on a card opens it. Pressing Enter on the focused carousel or a focused grid card opens it too. The popup is `ProjectPopup` in [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx): a panel over the dimmed page with the title, class, dates, skills, full description, and the link button. It closes with Esc or a click (or tap) anywhere outside the panel.
+
+Round arrows on each side of the panel (or below it on phones), and the left/right arrow keys, step to the previous or next project in `projects.json` order. In carousel mode they wrap around, so both arrows always show, and the carousel spins along behind the popup, so the last project viewed is in front when it closes. In grid mode they don't wrap: the first project has no left arrow and the last has no right arrow.
+
+Popup styling is the `.project-popup` rules in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css). The panel's width is the `620px` in `.project-popup__frame`.
 
 ### Carousel size and behavior
 
@@ -168,7 +178,7 @@ Card size is set by constants at the top of [src/components/ProjectCarousel.jsx]
 | Constant | Meaning |
 | --- | --- |
 | `CARD_WIDTH` | Card width in px. Bigger cards mean fewer on screen at once. |
-| `CARD_ASPECT` | Width ÷ height. `1` is square, higher is wider and shorter. |
+| `CARD_ASPECT` | Width ÷ height. `1` is square, higher is wider and shorter. Lower it if a card's skills get cut off. |
 | `SCREEN_MARGIN` | On narrow screens, cards shrink to the screen width minus this many px. |
 | `NARROW_CARD_HEIGHT` | Card height in px once cards have shrunk. Narrow cards keep this height instead of `CARD_ASPECT`, because their text wraps onto more lines. |
 
@@ -186,9 +196,9 @@ The carousel's behavior is set by props on `<CircularCarousel>` in the same file
 
 A short light-grey bar (`.project-carousel__marker`) sits centered under the card in front. The front card always snaps to the center, so the bar stays in place.
 
-A round arrow button on the right edge of the carousel shows visitors to browse to the right. It nudges right until they first click, drag, or press a key on the carousel, then sits still. Clicking it brings the next card (the one on the right) to the front, the same as the right arrow key. On phones it sits just below the card's bottom-right corner. Its look is `.project-carousel__next` in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css), and it moves the carousel through the `apiRef` prop added to `CircularCarousel`.
+A round arrow button on the right edge of the carousel shows visitors to browse to the right. It nudges right until they first click, drag, or press a key on the carousel, then sits still. Clicking it brings the next card (the one on the right) to the front, the same as the right arrow key. On phones it sits just below the card's bottom-right corner. Its look is `.project-carousel__next` in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css), and it moves the carousel through the `apiRef` prop added to `CircularCarousel` (which also has `focus(index)`, used by the popup).
 
-Card styling is in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css). The carousel draws each card as several vertical strips so it can curve, and each strip holds its own copy of the card's content. Any hover effect inside a card therefore has to be triggered from the whole card (see the `:has()` rule for the button in that file), or only the slice under the mouse will react.
+Card styling is in [src/components/ProjectCarousel.css](src/components/ProjectCarousel.css). The carousel draws each card as several vertical strips so it can curve, and each strip holds its own copy of the card's content. Any hover effect inside a card therefore has to be triggered from the whole card (see the `.circular-carousel__card:hover` rules in that file), or only the slice under the mouse will react.
 
 ### Hero lanyard
 
@@ -250,7 +260,7 @@ The favicon is an inline SVG in the `<head>` of [index.html](index.html) with it
 - Icon-only buttons and links have `aria-label`s, and the mobile menu button keeps `aria-expanded` in sync.
 - Decorative elements (the canvas and the scroll progress bar) are hidden from assistive technology.
 - Semantic landmarks: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`.
-- The project carousel is a single tab stop. Once focused, the arrow keys move between cards, Home and End jump to the first and last, and Enter opens the front card's link. Screen readers hear the title of the card in front as it changes. With reduced motion on, the carousel doesn't drift or animate in.
+- The project carousel is a single tab stop. Once focused, the arrow keys move between cards, Home and End jump to the first and last, and Enter opens the front card's popup. The popup takes focus while open and gives it back when it closes. Screen readers hear the title of the card in front as it changes. With reduced motion on, the carousel doesn't drift or animate in.
 
 TODO: run a full audit (Lighthouse or axe) and check keyboard navigation and color contrast in both themes.
 

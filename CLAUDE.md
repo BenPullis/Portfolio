@@ -23,18 +23,19 @@ VS Code's "Go Live" / Live Server does **not** work. The source `index.html` loa
 
 ## Project carousel: traps to know
 
-- [src/components/CircularCarousel.jsx](src/components/CircularCarousel.jsx) started as a React Bits component (installed through the shadcn registry) and has been **modified heavily**. Never reinstall or overwrite it. Added props: `renderItem`, `ariaLabel`, `onItemActivate`, `viewDistance`, `edgeFade`, `apiRef` (gives `{ next(), prev() }` for outside buttons). The stock demo images were deleted, so `items` is required and must be non-empty.
+- [src/components/CircularCarousel.jsx](src/components/CircularCarousel.jsx) started as a React Bits component (installed through the shadcn registry) and has been **modified heavily**. Never reinstall or overwrite it. Added props: `renderItem`, `ariaLabel`, `onItemActivate`, `viewDistance`, `edgeFade`, `apiRef` (gives `{ next(), prev(), focus(index) }` for outside buttons and the popup). The stock demo images were deleted, so `items` is required and must be non-empty.
 - **Cards are drawn as several vertical strips** so they can curve, and every strip holds a full copy of the card's DOM. Consequences:
-  - A plain `:hover` on an element inside a card only affects the slice under the mouse. Trigger hover effects from the whole card with `.circular-carousel__card:has(... :hover) ...` (see the Try Me button in `ProjectCarousel.css`).
-  - Links in cards use `tabIndex={-1}` because of the duplicates. Keyboard users press Enter on the focused carousel, which calls `onItemActivate`.
+  - A plain `:hover` on an element inside a card only affects the slice under the mouse. Trigger hover effects from the whole card with `.circular-carousel__card:hover ...` or `.circular-carousel__card:has(... :hover) ...`.
+  - That's also why cards hold no links or buttons: the small cards only show title, meta, and skills, clicking one spins it to the middle, and clicking its "View details" (`onItemClick` now also gets the click event, so `ProjectCarousel` checks the target) or pressing Enter (`onItemActivate`) opens `ProjectPopup`, which is portaled to `document.body` and holds the description and link.
   - Drag-release over a link is suppressed with `preventDefault` in `handleClick`.
 - **Order:** [src/components/ProjectCarousel.jsx](src/components/ProjectCarousel.jsx) passes `ringOrder` (projects.json walked backwards from `START_INDEX`), so the file reads left to right with `projects[START_INDEX]` in front. `START_INDEX` is 1, so the second project starts in front.
 - **Warping:** most of the distortion came from the panorama preset putting the viewer at the center of the ring, not from `curve`. `viewDistance` (currently 2.6) is the main control.
-- Card size: the `CARD_WIDTH` / `CARD_ASPECT` / `SCREEN_MARGIN` constants at the top of `ProjectCarousel.jsx`. Button types: the `BUTTONS` map in the same file (`"try"`, `"code"`, `"none"`).
+- Card size: the `CARD_WIDTH` / `CARD_ASPECT` / `SCREEN_MARGIN` constants at the top of `ProjectCarousel.jsx`. Button types: the `BUTTONS` map in the same file (`"try"`, `"code"`, `"soon"`, `"none"`).
 
 ## Content conventions
 
 - **Project descriptions** in [src/data/projects.json](src/data/projects.json) are about 45–60 words in three parts: what it is ("A 3D racing game where…"), a "Features …" sentence, then "Built with …, and deployed to GitHub Pages through GitHub Actions." If a project isn't deployed, end with "with deployment TBD."
+- `skills`: an array of short chip labels (languages, tools, techniques), about 3–6.
 - `button`: `"try"` for live demos, `"code"` for a repo link, `"none"` for no button. No button shows if `link` is `""`.
 
 ## Working with Ben

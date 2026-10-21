@@ -146,11 +146,12 @@ const CircularCarousel = ({
   renderItem,
   ariaLabel = 'Image carousel',
   onChange,
+  // Called on a card click with (item, index, event); `event.target` tells which part was clicked.
   onItemClick,
   // Called on Enter/Space for the front card. Defaults to onItemClick.
   onItemActivate = onItemClick,
-  // Optional ref that receives { next(), prev() } so outside buttons can move the carousel.
-  // next() brings the card on the right to the front, like the right arrow key.
+  // Optional ref that receives { next(), prev(), focus(index) } so outside buttons can move the carousel.
+  // next() brings the card on the right to the front, like the right arrow key. focus(index) spins items[index] to the front.
   apiRef,
   className = '',
   style
@@ -664,7 +665,7 @@ const CircularCarousel = ({
     wakeRef.current();
   }, []);
 
-  useImperativeHandle(apiRef, () => ({ next: () => stepBy(1), prev: () => stepBy(-1) }), [stepBy]);
+  useImperativeHandle(apiRef, () => ({ next: () => stepBy(1), prev: () => stepBy(-1), focus: focusIndex }), [stepBy, focusIndex]);
 
   const updatePointer = event => {
     const rect = rootRef.current.getBoundingClientRect();
@@ -777,7 +778,7 @@ const CircularCarousel = ({
     if (!card) return;
     const index = Number(card.getAttribute('data-cc-index'));
     if (focusOnClick) focusIndex(index);
-    onItemClick?.(list[index], index);
+    onItemClick?.(list[index], index, event);
   };
 
   const handleKeyDown = event => {
